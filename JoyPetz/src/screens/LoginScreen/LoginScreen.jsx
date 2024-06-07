@@ -1,5 +1,5 @@
-import { View, Text,TouchableOpacity } from "react-native";
-import { Button, TextInput } from "react-native-paper";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {TextInput } from "react-native-paper";
 
 export default function LoginScreen({ navigation }) {
   function onPressLogin() {
@@ -7,19 +7,23 @@ export default function LoginScreen({ navigation }) {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text>Login</Text>
 
       <TextInput label="Email" />
       <TextInput label="Senha" />
 
-      <Button onPress={onPressLogin}>Logar</Button>
-      <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-        <Text>
-          Não tem uma conta?
-          <Text>Crie uma</Text>
-        </Text>
-      </TouchableOpacity>
+      <Button onPress={onPressLogin}>Entrar</Button>
+      <Button mode="contained">Registrar-se</Button>
+
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+})
