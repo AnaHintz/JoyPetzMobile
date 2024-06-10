@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { styles } from "../../config/Style";
 
@@ -22,7 +22,7 @@ export default function LoginScreen({ navigation }) {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={estilo.container}>
             <View style={styles.container_inner}>
                 <Image
                     source={require("../../../assets/MicrosoftTeams-image.png")}
@@ -57,3 +57,14 @@ export default function LoginScreen({ navigation }) {
         </View>
     );
 }
+
+const estilo = StyleSheet.create({
+    container: {
+    flex: 1,
+    backgroundColor: "#FFFF",
+    alignItems: "center",
+    justifyContent: 'center',
+    paddingRight: 20,
+    paddingLeft: 20,
+    }
+})

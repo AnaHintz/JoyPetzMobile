@@ -1,41 +1,48 @@
+
+import { View, Text, StyleSheet } from 'react-native';
+import { Button, TextInput } from 'react-native-paper';
+import {MaterialIcons} from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useState } from 'react';
-import { View } from 'react-native';
-import ImagePicker from 'react-native-image-picker';
-import { Button } from 'react-native-paper';
 
 export default function PublicarScreen({ navigation }) {
-
     const [image, setImage] = useState();
 
-    function chooseImage() {
-        const options = {
-            title: 'Selecionar imagem',
-            storageOptions: {
-                skipBackup: true,
-                path: 'images'
-            }
-        }
-    };
-
-    ImagePicker.showImagePicker(options, response => {
-        if (response.didCancel) {
-            console.log('Usuário cancelou a seleção de imagem');
-        } else if (response.error) {
-            console.log('Erro ao selecionar a imagem:', response.error);
-        } else {
-            // Atualiza o estado da imagem com a imagem selecionada
-            setImage(response.uri);
-        }
-    });
-    
+    function handleimage() {
+        alert("Imagem enviada com sucesso!!")
+    }
     return (
-        <View>
-            <Text>Olá sou a PScreen</Text>
-            <Button title="Escolher imagem" onPress={chooseImage} />
-            {image && <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: 20 }} />}
+        <View style={publi.container}>
+            <TouchableOpacity style={publi.toque} onPress={handleimage}><MaterialIcons name='camera' size={24} color='black'/>Adicionar foto</TouchableOpacity>
+            <TextInput label='Nome'/>
+            <TextInput label='Idade'/>
+            <TextInput label='Sexo'/>
+            <TextInput label='Espécie'/>
+            <TextInput label='Raça'/>
+            <TextInput label='Contato'/>
+            <TextInput 
+            label='Descrição'
+            multiline
+            />
+            <Button >Publicar</Button>
         </View>
     );
 };
+
+const publi = StyleSheet.create({
+    container: {
+        flex:1,
+        alignItems:'center',
+        justifyContent: 'center',
+    },
+    toque: {
+        backgroundColor: 'pink',
+        borderRadius: 5,
+        fontSize: 17,
+        margin: 10,
+        marginRight: 130,
+    }
+})
 
 
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { styles } from "../../config/Style";
 
@@ -21,12 +21,12 @@ export default function RegisterScreen({ navigation }) {
       setError("As senhas não estão iguais. Por favor, tente novamente.");
       return;
     }else {
-      navigation.navigate("Home");
+      navigation.navigate("Login");
     }
   };
 
   return (
-    <View style={styles.container}>
+    <View style={estilo.container}>
       <View style={styles.container_inner}>
       <Image 
      source={require("../../../assets/MicrosoftTeams-image.png")} 
@@ -39,6 +39,7 @@ export default function RegisterScreen({ navigation }) {
           placeholder={"Digite seu e-mail"}
           value={email}
           onChangeText={setEmail}
+          style={styles.input}
         />
         <TextInput
          activeUnderlineColor="hotpink"
@@ -47,6 +48,7 @@ export default function RegisterScreen({ navigation }) {
           value={senha}
           onChangeText={setSenha}
           secureTextEntry // Para esconder a senha
+          style={styles.input}
         />
         <TextInput
          activeUnderlineColor="hotpink"
@@ -64,3 +66,14 @@ export default function RegisterScreen({ navigation }) {
     </View>
   );
 }
+
+const estilo = StyleSheet.create({
+  container: {
+  flex: 1,
+  backgroundColor: "#FFFF",
+  alignItems: "center",
+  justifyContent: 'center',
+  paddingRight: 20,
+  paddingLeft: 20,
+  }
+})
