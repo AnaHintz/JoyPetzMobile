@@ -1,50 +1,44 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { DrawerContentScrollView, DrawerItemList, createDrawerNavigator } from "@react-navigation/drawer";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import RegisterScreen from "../screens/RegisterScreen/RegisterScreen";
 import HomeScreen from "../screens/HomeScreen/HomeScreen";
 import LoginScreen from "../screens/LoginScreen/LoginScreen";
 import ConfigurationScreen from "../screens/ConfigurationScreen/ConfigurationScreen";
-import SobreScreen from "../screens/SobreScreen/SobreScreen";
 import * as React from 'react';
 import PublicarScreen from "../screens/PublicarScreen/PublicarScreen";
+import TestesScreen from "../screens/TestesScreen/TestesScreen";
+import { Ionicons } from "@expo/vector-icons";
 
 
-const Drawer = createDrawerNavigator();
-
-{ /*function CustomDrawerContent(props) {
-  const { state, ...rest } = props;
-  const newState = {
-    ...state,
-    routeNames: state.routeNames.filter(
-      routeName => routeName !== 'Login' && routeName !== 'Register'
-
-    ),
-    routes: state.routes.filter(
-      route => route.name !== 'Login' && route.name !== 'Register' // Filtra o Profile
-    ),
-  }
-
-  return (
-    <DrawerContentScrollView {...props}>
-      <DrawerItemList state={newState} {...rest} />
-      
-    </DrawerContentScrollView>
-  );
-};*/ }
+const HomeIcon = ({ focused, color, size }) => (
+  <Ionicons name="home" size={size} color="hotpink" />
+ );
+ const DoarIcon = ({ focused, color, size }) => (
+  <Ionicons name="heart" size={size} color="hotpink" />
+ );
+ const PerfilIcon = ({ focused, color, size }) => (
+  <Ionicons name="person" size={size} color="hotpink" />
+ );
  
-
-
+const Drawer = createDrawerNavigator();
 
 export default function AppNavigator() {
   return (
     <NavigationContainer>
       <Drawer.Navigator >
-        <Drawer.Screen name="Login" component={LoginScreen} options={{ headerShown: false,}}/>
-        <Drawer.Screen name="Register" component={RegisterScreen} options={{ headerShown: false,}}/>
-        <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="Doar" component={PublicarScreen} />
-        <Drawer.Screen name="Configurações" component={ConfigurationScreen} />
-        <Drawer.Screen name="Sobre" component={SobreScreen}/>
+        
+        <Drawer.Screen name="Home" component={HomeScreen} 
+        options={{ drawerIcon:HomeIcon }}
+         />
+        
+        <Drawer.Screen name="Doar" component={PublicarScreen}  options={{ drawerIcon:DoarIcon }} />
+
+        <Drawer.Screen name="Perfil" component={ConfigurationScreen} 
+         options={{ drawerIcon:PerfilIcon }}/>
+
+        <Drawer.Screen name="Teste" component={TestesScreen}  />
+        <Drawer.Screen name="Login" component={LoginScreen} options={{ headerShown: false, }} />
+        <Drawer.Screen name="Register" component={RegisterScreen} options={{ headerShown: false, }} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

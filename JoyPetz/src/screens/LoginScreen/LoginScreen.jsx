@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { View, Image, StyleSheet } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { styles } from "../../config/Style";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../config/firebase";
 
 export default function LoginScreen({ navigation }) {
     const [email, setEmail] = useState("");
@@ -9,23 +11,29 @@ export default function LoginScreen({ navigation }) {
     const [error, setError] = useState("");
 
     const handleLogin = () => {
-
         if (!email.trim() || !senha.trim()) {
             setError("Por favor, preencha todos os campos.");
-
             return;
         }
         else {
             navigation.navigate("Home");
             setError("Credenciais inválidas. Por favor, tente novamente.");
         }
+        
+        try{
+            const userRef = signInWithEmailAndPassword(auth, email, senha);
+            if(userRef) {
+                console.log("Usuário logado com sucesso!");
+                navigation.navigate("Home")
+            }
+        } catch(e) {}
     };
 
     return (
         <View style={estilo.container}>
             <View style={styles.container_inner}>
                 <Image
-                    source={require("../../../assets/MicrosoftTeams-image.png")}
+                    source={require("../../../assets/joypetz.png")}
                     style={{ width: 200, height: 200 }} />
                 <Text variant="titleLarge">Login</Text>
                 {/* Exibir mensagem de erro, se houver */}

@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { View, Image, StyleSheet } from "react-native";
-import { Button, Text, TextInput } from "react-native-paper";
+import { Button, Icon, Text, TextInput } from "react-native-paper";
 import { styles } from "../../config/Style";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../config/firebase";
 
 export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [repetirSenha, setRepetirSenha] = useState("");
+  const [hidePassword, setHidePassword] = useState("");
   const [error, setError] = useState("");
 
   const handleRegister = () => {
@@ -20,21 +23,31 @@ export default function RegisterScreen({ navigation }) {
     else if (senha !== repetirSenha) {
       setError("As senhas não estão iguais. Por favor, tente novamente.");
       return;
-    }else {
-      navigation.navigate("Login");
     }
+
+    try {
+      const userRef = createUserWithEmailAndPassword(auth, email, senha);
+      if (userRef) {
+        console.log("Usuário registrado com sucesso!");
+        navigation.navigate("Login");
+      }
+
+    } catch (e) {
+      console.error(e);
+    }
+
   };
 
   return (
     <View style={estilo.container}>
       <View style={styles.container_inner}>
-      <Image 
-     source={require("../../../assets/MicrosoftTeams-image.png")} 
-     style={{ width: 200, height: 200 }}/>
+        <Image
+          source={require("../../../assets/joypetz.png")}
+          style={{ width: 200, height: 200 }} />
         <Text variant="titleLarge">Página de Registro!</Text>
         {error ? <Text style={styles.errorText}>{error}</Text> : null}
         <TextInput
-         activeUnderlineColor="hotpink"
+          activeUnderlineColor="hotpink"
           label={"Email"}
           placeholder={"Digite seu e-mail"}
           value={email}
@@ -42,25 +55,40 @@ export default function RegisterScreen({ navigation }) {
           style={styles.input}
         />
         <TextInput
-         activeUnderlineColor="hotpink"
+          activeUnderlineColor="hotpink"
           label={"Senha"}
           placeholder={"Digite sua Senha"}
           value={senha}
           onChangeText={setSenha}
-          secureTextEntry // Para esconder a senha
+          secureTextEntry={hidePassword}
+          right={
+            <Icon
+              name={hidePassword ? "eye" : "eye-off"}
+              onPress={() => setHidePassword(!hidePassword)}
+            />
+          }
           style={styles.input}
         />
         <TextInput
-         activeUnderlineColor="hotpink"
+          activeUnderlineColor="hotpink"
           label={"Repetir senha"}
           placeholder={"Repita sua senha"}
           value={repetirSenha}
           onChangeText={setRepetirSenha}
           style={styles.esp}
-          secureTextEntry // Para esconder a senha
+          secureTextEntry={hidePassword}
+          right={
+            <Icon
+              name={hidePassword ? "eye" : "eye-off"}
+              onPress={() => setHidePassword(!hidePassword)}
+            />
+          }
         />
         <Button mode="contained" onPress={handleRegister} buttonColor="hotpink">
           Fazer Cadastro
+        </Button>
+        <Button mode="text" onPress={() => navigation.navigate("Login")}>
+          Voltar para o login
         </Button>
       </View>
     </View>
@@ -69,11 +97,11 @@ export default function RegisterScreen({ navigation }) {
 
 const estilo = StyleSheet.create({
   container: {
-  flex: 1,
-  backgroundColor: "#FFFF",
-  alignItems: "center",
-  justifyContent: 'center',
-  paddingRight: 20,
-  paddingLeft: 20,
+    flex: 1,
+    backgroundColor: "#FFFF",
+    alignItems: "center",
+    justifyContent: 'center',
+    paddingRight: 20,
+    paddingLeft: 20,
   }
 })
