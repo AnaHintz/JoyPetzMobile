@@ -6,7 +6,7 @@ import LoginScreen from "../screens/LoginScreen/LoginScreen";
 import ConfigurationScreen from "../screens/ConfigurationScreen/ConfigurationScreen";
 import * as React from 'react';
 import PublicarScreen from "../screens/PublicarScreen/PublicarScreen";
-import TestesScreen from "../screens/TestesScreen/TestesScreen";
+import TesteScreen from "../screens/TestesScreen/TestesScreen";
 import { Ionicons } from "@expo/vector-icons";
 
 
@@ -26,17 +26,14 @@ export default function AppNavigator() {
   return (
     <NavigationContainer>
       <Drawer.Navigator >
-        
         <Drawer.Screen name="Home" component={HomeScreen} 
         options={{ drawerIcon:HomeIcon }}
          />
-        
-        <Drawer.Screen name="Doar" component={PublicarScreen}  options={{ drawerIcon:DoarIcon }} />
-
+        <Drawer.Screen name="Doar" component={PublicarScreen}  
+        options={{ drawerIcon:DoarIcon }} />
         <Drawer.Screen name="Perfil" component={ConfigurationScreen} 
          options={{ drawerIcon:PerfilIcon }}/>
-
-        <Drawer.Screen name="Teste" component={TestesScreen}  />
+        {/*<Drawer.Screen name="Teste" component={TesteScreen}  />  */}
         <Drawer.Screen name="Login" component={LoginScreen} options={{ headerShown: false, }} />
         <Drawer.Screen name="Register" component={RegisterScreen} options={{ headerShown: false, }} />
       </Drawer.Navigator>

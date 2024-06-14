@@ -20,23 +20,7 @@ export default function PublicarScreen({ navigation }) {
     { label: "Fêmea", value: "femea" },
   ]);
 
-  const [open2, setOpen2] = useState(false);
-  const [value2, setValue2] = useState(null);
-  const [items2, setItems2] = useState([
-    { label: "12 meses", value: "12m" },
-    { label: "11 meses", value: "11m" },
-    { label: "10 meses", value: "10m" },
-    { label: "9 meses", value: "9m" },
-    { label: "8 meses", value: "8m" },
-    { label: "7 meses", value: "7m" },
-    { label: "6 meses", value: "6m" },
-    { label: "5 meses", value: "5m" },
-    { label: "4 meses", value: "4m" },
-    { label: "3 meses", value: "3m" },
-    { label: "2 meses", value: "2m" },
-    { label: "1 mês", value: "1m" },
-  ]);
-
+ 
   function handleimage() {
     alert("Imagem enviada com sucesso!!");
   }
@@ -48,15 +32,7 @@ export default function PublicarScreen({ navigation }) {
       </TouchableOpacity>
       <TextInput label="Nome" />
 
-      <DropDownPicker
-        open2={open2}
-        value2={value2}
-        items2={items2}
-        setOpen2={setOpen2}
-        setValue2={setValue2}
-        setItems2={setItems2}
-        placeholder={'Idade'}
-      />
+      
 
       <DropDownPicker
         open={open}
