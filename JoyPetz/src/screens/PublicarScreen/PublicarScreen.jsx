@@ -4,15 +4,12 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useState } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
-
+import storage from '@react-native-firebase/storage';
 
 export default function PublicarScreen({ navigation }) {
-  const [image, setImage] = useState();
-
+  const [image, setImage] = useState(null);
   const [expanded, setExpanded] = useState(true);
-
   const handlePress = () => setExpanded(!expanded);
-
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
@@ -20,10 +17,15 @@ export default function PublicarScreen({ navigation }) {
     { label: "Fêmea", value: "femea" },
   ]);
 
- 
-  function handleimage() {
+  function handleimage(uri) {
     alert("Imagem enviada com sucesso!!");
+    const filename = uri.substring(uri.lastIndexOf('/') + 1);
+    const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+    const reference = Storage().ref(filename);
+
+    const task = reference.putFile(uploadUri);
   }
+
   return (
     <View style={publi.container}>
       <TouchableOpacity style={publi.toque} onPress={handleimage}>

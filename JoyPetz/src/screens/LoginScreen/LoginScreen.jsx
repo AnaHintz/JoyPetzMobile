@@ -14,7 +14,6 @@ export default function LoginScreen({ navigation }) {
             setError("Por favor, preencha todos os campos.");
             return;
         } else {
-            navigation.navigate("Home");
             setError("Credenciais inválidas. Por favor, tente novamente.");
         }
 
