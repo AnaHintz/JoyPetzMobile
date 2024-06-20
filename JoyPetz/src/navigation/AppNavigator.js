@@ -26,11 +26,12 @@ export default function AppNavigator() {
   return (
     <NavigationContainer>
       <Drawer.Navigator >
+        <Drawer.Screen name="Doar" component={PublicarScreen}  
+        options={{ drawerIcon:DoarIcon }} />
         <Drawer.Screen name="Home" component={HomeScreen} 
         options={{ drawerIcon:HomeIcon }}
          />
-        <Drawer.Screen name="Doar" component={PublicarScreen}  
-        options={{ drawerIcon:DoarIcon }} />
+        
         <Drawer.Screen name="Perfil" component={ConfigurationScreen} 
          options={{ drawerIcon:PerfilIcon }}/>
         {/*<Drawer.Screen name="Teste" component={TesteScreen}  />  */}
