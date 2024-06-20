@@ -33,7 +33,7 @@ export default function AppNavigator() {
         options={{ drawerIcon:DoarIcon }} />
         <Drawer.Screen name="Perfil" component={ConfigurationScreen} 
          options={{ drawerIcon:PerfilIcon }}/>
-        {/*<Drawer.Screen name="Teste" component={TesteScreen}  />  */}
+        <Drawer.Screen name="Teste" component={TesteScreen}  /> 
         <Drawer.Screen name="Login" component={LoginScreen} options={{ headerShown: false, }} />
         <Drawer.Screen name="Register" component={RegisterScreen} options={{ headerShown: false, }} />
       </Drawer.Navigator>
