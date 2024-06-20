@@ -80,7 +80,7 @@ export default function PublicarScreen({ navigation }) {
     <View style={publi.container}>
       <TouchableOpacity style={publi.toque} onPress={pickImage}>
         <MaterialIcons name="camera" size={24} color="black" />
-        Adicionar foto
+        Adicionar imagem
       </TouchableOpacity>
       <TextInput label="Nome" value={name} onChangeText={setName}/>
 
