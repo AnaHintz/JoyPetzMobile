@@ -72,17 +72,22 @@ export default function PublicarScreen({ navigation }) {
     try {
       const response = await fetch(image);
       const blob = await response.blob();
-      const storageRef = ref(storage, `images/${Date.now()}-${name}-${selectedSex}
-      -${selectedAge}-${especie}-${raca}-${contato}-${desc}.jpg`);
+      const storageRef = ref(storage, `images/${Date.now()}-${name}.jpg`);
       const snapshot = await uploadBytes(storageRef, blob);
       const downloadURL = await getDownloadURL(snapshot.ref);
 
       await addDoc(collection(db, "posts"), {
         imageUrl: downloadURL,
-        caption: caption,
+        name: name,
+        selectedSex: selectedSex,
+        selectedAge: selectedAge,
+        especie: especie,
+        raca: raca,
+        contato: contato,
+        desc: desc,
         createdAt: new Date(),
       });
-
+//-${selectedSex}-${selectedAge}-${especie}-${raca}-${contato}-${desc}
       console.log("Upload realizado com sucesso:", downloadURL);
       setUploading(false);
       setImage(null);

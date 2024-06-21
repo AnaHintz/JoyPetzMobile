@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, FlatList, Image, StyleSheet } from "react-native";
-import { Surface, Text } from "react-native-paper";
+import { Button, Surface, Text } from "react-native-paper";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "../../config/firebase";
  
@@ -28,7 +28,8 @@ export default function HomeScreen() {
         renderItem={({ item }) => (
           <View style={styles.post}>
             <Image source={{ uri: item.imageUrl }} style={styles.image} />
-            <Text>{item.caption}</Text>
+            <Text>{item.name}</Text>
+            <Button>Ver mais</Button>
           </View>
         )}
       />

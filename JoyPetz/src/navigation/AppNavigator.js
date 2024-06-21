@@ -8,6 +8,7 @@ import * as React from 'react';
 import PublicarScreen from "../screens/PublicarScreen/PublicarScreen";
 import TesteScreen from "../screens/TestesScreen/TestesScreen";
 import { Ionicons } from "@expo/vector-icons";
+import { StyleSheet } from "react-native";
 
 
 const HomeIcon = ({ focused, color, size }) => (
@@ -25,7 +26,7 @@ const Drawer = createDrawerNavigator();
 export default function AppNavigator() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator >
+      <Drawer.Navigator style={styles.colr}>
         <Drawer.Screen name="Home" component={HomeScreen} 
         options={{ drawerIcon:HomeIcon }}
          />
@@ -40,3 +41,9 @@ export default function AppNavigator() {
     </NavigationContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  colr: {
+    color: "red"
+  }
+})
