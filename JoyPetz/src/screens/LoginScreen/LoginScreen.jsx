@@ -3,12 +3,14 @@ import { View, Image, StyleSheet } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
- 
+
 export default function LoginScreen({ navigation }) {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [error, setError] = useState("");
- 
+
+
+
     const handleLogin = () => {
         if (!email.trim() || !senha.trim()) {
             setError("Por favor, preencha todos os campos.");
@@ -17,7 +19,7 @@ export default function LoginScreen({ navigation }) {
             navigation.navigate("Home");
             setError("Credenciais inválidas. Por favor, tente novamente.");
         }
- 
+
         try {
             const userRef = signInWithEmailAndPassword(auth, email, senha);
             if (userRef) {
@@ -28,7 +30,9 @@ export default function LoginScreen({ navigation }) {
             console.error(e);
         }
     };
- 
+    // exportar variável para outro documento
+    module.exports = email;
+
     return (
         <View style={estilo.container}>
             <View style={estilo.header}>
@@ -49,7 +53,7 @@ export default function LoginScreen({ navigation }) {
                         placeholder={"Digite seu e-mail"}
                         value={email}
                         onChangeText={setEmail}
- 
+
                     />
                 </View>
                 <View style={estilo.input2}>
@@ -76,7 +80,8 @@ export default function LoginScreen({ navigation }) {
         </View>
     );
 }
- 
+
+
 const estilo = StyleSheet.create({
     container: {
         flex: 1,

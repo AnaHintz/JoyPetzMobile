@@ -8,7 +8,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { storage, db } from "../../config/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { collection, addDoc } from "firebase/firestore";
- 
+
 export default function PublicarScreen({ navigation }) {
   const [image, setImage] = useState();
   const [name, setName] = useState("");
@@ -19,7 +19,8 @@ export default function PublicarScreen({ navigation }) {
   const [selectedAge, setSelectedAge] = useState('2 meses');
   const [selectedSex, setSelectedSex] = useState('Fêmea');
   const [uploading, setUploading] = useState(false);
- 
+  
+
   const generateAgeOptions = () => {
     const options = [];
     for (let i = 2; i <= 120; i++) {
@@ -33,10 +34,10 @@ export default function PublicarScreen({ navigation }) {
     }
     return options;
   };
- 
+
   const pickImage = async () => {
     console.log("Iniciando seleção de imagem...");
- 
+
     if (Platform.OS !== 'web') {
       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== 'granted') {
@@ -44,16 +45,16 @@ export default function PublicarScreen({ navigation }) {
         return;
       }
     }
- 
+
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
- 
+
     console.log("Imagem selecionada:", result);
- 
+
     if (!result.canceled) {
       const uri = Platform.OS === 'web' ? result.assets[0].uri : result.uri;
       setImage(uri);
@@ -61,20 +62,20 @@ export default function PublicarScreen({ navigation }) {
       console.log("Seleção de imagem cancelada.");
     }
   };
- 
+
   const uploadImage = async () => {
     if (!image) return;
- 
+
     setUploading(true);
     console.log("Iniciando upload da imagem...");
- 
+
     try {
       const response = await fetch(image);
       const blob = await response.blob();
       const storageRef = ref(storage, `images/${Date.now()}-${name}.jpg`);
       const snapshot = await uploadBytes(storageRef, blob);
       const downloadURL = await getDownloadURL(snapshot.ref);
- 
+
       await addDoc(collection(db, "posts"), {
         imageUrl: downloadURL,
         name: name,
@@ -85,25 +86,18 @@ export default function PublicarScreen({ navigation }) {
         contato: contato,
         desc: desc,
         createdAt: new Date(),
-        email: "edu@gmail.com",
+        email: require('../LoginScreen/LoginScreen'),
       });
       //-${selectedSex}-${selectedAge}-${especie}-${raca}-${contato}-${desc}
       console.log("Upload realizado com sucesso:", downloadURL);
       setUploading(false);
       setImage(null);
-      setContato("");
-      setDesc("");
-      setEspecie("");
-      setName("");
-      setRaca("");
-      setSelectedAge("");
-      setSelectedSex("");
     } catch (error) {
       console.error("Erro ao fazer upload da imagem:", error);
       setUploading(false);
     }
   };
- 
+
   return (
     <View style={publi.container}>
       <View style={styles.container}>
@@ -111,10 +105,10 @@ export default function PublicarScreen({ navigation }) {
           <FontAwesome name="camera" size={21} color="black" style={publi.icon} />
           <Text style={publi.text}>Adicionar foto</Text>
         </TouchableOpacity>
- 
+
         <Text style={styles.label}>Nome</Text>
         <TextInput label="Nome" value={name} onChangeText={setName} />
- 
+
         {/* Adicionando um View para alinhar Idade e Sexo em linha */}
         <View style={styles.inlineContainer}>
           <View style={styles.inlineItem}>
@@ -141,7 +135,7 @@ export default function PublicarScreen({ navigation }) {
             </Picker>
           </View>
         </View>
- 
+
         <Text style={styles.label}>Especie</Text>
         <TextInput label="Espécie" value={especie} onChangeText={setEspecie} />
         <Text style={styles.label}>Raça</Text>
@@ -162,7 +156,7 @@ export default function PublicarScreen({ navigation }) {
     </View>
   );
 }
- 
+
 const publi = StyleSheet.create({
   container: {
     flex: 1,
@@ -189,7 +183,7 @@ const publi = StyleSheet.create({
     marginRight: 8,
   },
 });
- 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

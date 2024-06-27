@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { View, FlatList, Image, StyleSheet, Modal, Pressable } from "react-native";
+import { View, FlatList, Image, StyleSheet, Modal, Pressable, Alert } from "react-native";
 import { Button, Surface, Text } from "react-native-paper";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "../../config/firebase";
@@ -9,6 +9,7 @@ export default function HomeScreen() {
   const [posts, setPosts] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  var emailUser = require('../LoginScreen/LoginScreen');
 
   useEffect(() => {
     const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
@@ -20,7 +21,7 @@ export default function HomeScreen() {
       setPosts(postsArray);
     });
 
-    return () => unsubscribe();
+   
   }, []);
 
   const openModal = (item) => {
@@ -33,8 +34,10 @@ export default function HomeScreen() {
     setModalVisible(false);
   };
 
+  const email = require("../LoginScreen/LoginScreen")
   return (
     <Surface style={styles.centeredView}>
+       
       <Modal
         animationType="slide"
         transparent={false}
@@ -56,6 +59,7 @@ export default function HomeScreen() {
                 <Text>raça: {selectedItem.raca}</Text>
                 <Text>contato: {selectedItem.contato}</Text>
                 <Text>descrição: {selectedItem.desc}</Text>
+                <Text>email: {selectedItem.email}</Text>
               </View>
             )}
             <Pressable
@@ -67,10 +71,9 @@ export default function HomeScreen() {
           </View>
         </View>
       </Modal>
-
       <FlatList
         data={posts}
-        keyExtractor={(item) => item.email}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.post}>
             <Image source={{ uri: item.imageUrl }} style={styles.image} />
