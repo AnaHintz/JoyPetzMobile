@@ -3,12 +3,12 @@ import { View, Image, StyleSheet } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
-
+ 
 export default function LoginScreen({ navigation }) {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [error, setError] = useState("");
-
+ 
     const handleLogin = () => {
         if (!email.trim() || !senha.trim()) {
             setError("Por favor, preencha todos os campos.");
@@ -17,7 +17,7 @@ export default function LoginScreen({ navigation }) {
             navigation.navigate("Home");
             setError("Credenciais inválidas. Por favor, tente novamente.");
         }
-
+ 
         try {
             const userRef = signInWithEmailAndPassword(auth, email, senha);
             if (userRef) {
@@ -28,7 +28,7 @@ export default function LoginScreen({ navigation }) {
             console.error(e);
         }
     };
-
+ 
     return (
         <View style={estilo.container}>
             <View style={estilo.header}>
@@ -41,29 +41,32 @@ export default function LoginScreen({ navigation }) {
             <View style={estilo.separator} />
             <View style={estilo.formContainer}>
                 {error ? <Text style={estilo.errorText}>{error}</Text> : null}
-                <Text>Email</Text>
-                <TextInput
-                    activeUnderlineColor="hotpink"
-                    label={"Email"}
-                    placeholder={"Digite seu e-mail"}
-                    value={email}
-                    onChangeText={setEmail}
-                    style={estilo.input}
-                />
-                <Text>Senha</Text>
-                <TextInput
-                    activeUnderlineColor="hotpink"
-                    label={"Senha"}
-                    placeholder={"Digite sua Senha"}
-                    value={senha}
-                    onChangeText={setSenha}
-                    style={estilo.input}
-                    secureTextEntry // Para esconder a senha
-                />
-                <Button mode="contained" onPress={handleLogin} buttonColor="hotpink">
+                <View style={estilo.input}>
+                    <Text>Email</Text>
+                    <TextInput
+                        activeUnderlineColor="hotpink"
+                        label={"Email"}
+                        placeholder={"Digite seu e-mail"}
+                        value={email}
+                        onChangeText={setEmail}
+ 
+                    />
+                </View>
+                <View style={estilo.input2}>
+                    <Text>Senha</Text>
+                    <TextInput
+                        activeUnderlineColor="hotpink"
+                        label={"Senha"}
+                        placeholder={"Digite sua Senha"}
+                        value={senha}
+                        onChangeText={setSenha}
+                        secureTextEntry // Para esconder a senha
+                    />
+                </View>
+                <Button style={estilo.margimtopo} mode="contained" onPress={handleLogin} buttonColor="hotpink">
                     Entrar
                 </Button>
-                <Button onPress={() => navigation.navigate("Register")} textColor="hotpink">
+                <Button style={estilo.margimtopo} mode="contained" onPress={() => navigation.navigate("Register")} buttonColor="hotpink">
                     Registrar
                 </Button>
                 <Button textColor="hotpink">
@@ -73,7 +76,7 @@ export default function LoginScreen({ navigation }) {
         </View>
     );
 }
-
+ 
 const estilo = StyleSheet.create({
     container: {
         flex: 1,
@@ -95,7 +98,7 @@ const estilo = StyleSheet.create({
         width: 100,
         height: 100,
     },
-    title: {   
+    title: {
         fontSize: 24,
         fontWeight: "bold",
         color: "hotpink",
@@ -116,6 +119,16 @@ const estilo = StyleSheet.create({
     input: {
         width: "100%",
         marginBottom: 10,
+    },
+    input2: {
+        width: "100%",
+        marginBottom: 10,
+        marginTop: 30,
+    },
+    margimtopo: {
+        width: "100%",
+        marginBottom: 10,
+        marginTop: 10,
     },
     errorText: {
         color: "red",
