@@ -85,19 +85,12 @@ export default function PublicarScreen({ navigation }) {
         contato: contato,
         desc: desc,
         createdAt: new Date(),
-        email: "edu@gmail.com",
+        email: require('../LoginScreen/LoginScreen'),
       });
       //-${selectedSex}-${selectedAge}-${especie}-${raca}-${contato}-${desc}
       console.log("Upload realizado com sucesso:", downloadURL);
       setUploading(false);
       setImage(null);
-      setContato("");
-      setDesc("");
-      setEspecie("");
-      setName("");
-      setRaca("");
-      setSelectedAge("");
-      setSelectedSex("");
     } catch (error) {
       console.error("Erro ao fazer upload da imagem:", error);
       setUploading(false);
