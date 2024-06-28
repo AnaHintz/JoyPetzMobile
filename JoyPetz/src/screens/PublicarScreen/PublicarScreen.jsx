@@ -92,6 +92,7 @@ export default function PublicarScreen({ navigation }) {
       console.log("Upload realizado com sucesso:", downloadURL);
       setUploading(false);
       setImage(null);
+      navigation.navigate('Home')
     } catch (error) {
       console.error("Erro ao fazer upload da imagem:", error);
       setUploading(false);
