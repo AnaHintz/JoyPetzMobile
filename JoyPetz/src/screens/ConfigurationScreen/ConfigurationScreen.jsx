@@ -5,24 +5,29 @@ import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import * as React from 'react';
 
-export default function HomeScreen() {
+
+
+export default function PerfilScreen() {
   const [posts, setPosts] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  var emailUser = require('../LoginScreen/LoginScreen');
+  const emailUser = require('../LoginScreen/LoginScreen');
 
   useEffect(() => {
     const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const postsArray = [];
       querySnapshot.forEach((doc) => {
-        postsArray.push({ ...doc.data(), id: doc.id });
+        const postData = doc.data();
+        if(postData.email === emailUser){
+           postsArray.push({ ...doc.data(), id: doc.id });
+        }
       });
       setPosts(postsArray);
     });
-
+    return () => unsubscribe();
    
-  }, []);
+  }, [emailUser]);
 
   const openModal = (item) => {
     setSelectedItem(item);
@@ -34,7 +39,6 @@ export default function HomeScreen() {
     setModalVisible(false);
   };
 
-  const email = require("../LoginScreen/LoginScreen")
   return (
     <Surface style={styles.centeredView}>
        
