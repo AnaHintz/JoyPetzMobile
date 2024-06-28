@@ -75,6 +75,8 @@ export default function PerfilScreen() {
           </View>
         </View>
       </Modal>
+      <Text>Olá {emailUser}</Text>
+      <Text>Suas Publicações</Text>
       <FlatList
         data={posts}
         keyExtractor={(item) => item.id}
