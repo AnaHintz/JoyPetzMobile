@@ -8,10 +8,11 @@ export default function LoginScreen({ navigation }) {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [error, setError] = useState("");
-
+    const [loading, setLoading] = useState(false);
 
 
     const handleLogin = () => {
+        setLoading(true);
         if (!email.trim() || !senha.trim()) {
             setError("Por favor, preencha todos os campos.");
             return;
@@ -19,7 +20,6 @@ export default function LoginScreen({ navigation }) {
             navigation.navigate("Home");
             setError("Credenciais inválidas. Por favor, tente novamente.");
         }
-
         try {
             const userRef = signInWithEmailAndPassword(auth, email, senha);
             if (userRef) {

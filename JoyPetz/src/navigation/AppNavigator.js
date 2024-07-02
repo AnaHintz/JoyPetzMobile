@@ -45,6 +45,13 @@ export default function AppNavigator() {
   return (
     <NavigationContainer>
       <Drawer.Navigator>
+      <Drawer.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{
+            headerShown: false, drawerLabel: () => null, 
+          }}
+        />
         <Drawer.Screen
           name="Home"
           component={HomeScreen}
@@ -73,21 +80,15 @@ export default function AppNavigator() {
           name="Teste"
           component={TesteScreen}
           options={{
-            header: ({ navigation }) => <CustomHeader navigation={navigation} title="Teste" />,
+            header: ({ navigation }) => <CustomHeader navigation={navigation} title="Teste" />,drawerLabel: () => null,
           }}
         />
-        <Drawer.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
+        
         <Drawer.Screen
           name="Register"
           component={RegisterScreen}
           options={{
-            headerShown: false,
+            headerShown: false,drawerLabel: () => null,
           }}
         />
       </Drawer.Navigator>
