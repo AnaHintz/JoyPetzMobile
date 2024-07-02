@@ -7,13 +7,9 @@ import * as React from 'react';
 import PublicarScreen from "../screens/PublicarScreen/PublicarScreen";
 import TesteScreen from "../screens/TestesScreen/TestesScreen";
 import { Ionicons } from "@expo/vector-icons";
-<<<<<<< HEAD
 import { StyleSheet, View, Text, Image } from "react-native";
 import { Appbar } from 'react-native-paper';
-=======
-import { StyleSheet } from "react-native";
 import PerfilScreen from "../screens/ConfigurationScreen/ConfigurationScreen";
->>>>>>> 3f94b8b9394a7e4f2cedc6a0e33e6e32123a5029
 
 // Importação da logo do projeto
 import logo from '../../assets/joypetz.png'; // Verifique o caminho correto para a logo
@@ -67,7 +63,7 @@ export default function AppNavigator() {
         />
         <Drawer.Screen
           name="Perfil"
-          component={ConfigurationScreen}
+          component={PerfilScreen}
           options={{
             drawerIcon: PerfilIcon,
             header: ({ navigation }) => <CustomHeader navigation={navigation} title="Perfil" />,
