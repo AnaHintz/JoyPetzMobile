@@ -78,7 +78,7 @@ export default function PerfilScreen() {
                 onPress={closeModal}
                 style={[styles.button, styles.buttonClose]}
               >
-                <Text style={styles.textStyle}>Hide Modal</Text>
+                <Text style={styles.textStyle}>Sair</Text>
               </Pressable>
             </View>
           </View>
