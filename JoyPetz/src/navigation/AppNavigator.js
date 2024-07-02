@@ -3,13 +3,17 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import RegisterScreen from "../screens/RegisterScreen/RegisterScreen";
 import HomeScreen from "../screens/HomeScreen/HomeScreen";
 import LoginScreen from "../screens/LoginScreen/LoginScreen";
-import ConfigurationScreen from "../screens/ConfigurationScreen/ConfigurationScreen";
 import * as React from 'react';
 import PublicarScreen from "../screens/PublicarScreen/PublicarScreen";
 import TesteScreen from "../screens/TestesScreen/TestesScreen";
 import { Ionicons } from "@expo/vector-icons";
+<<<<<<< HEAD
 import { StyleSheet, View, Text, Image } from "react-native";
 import { Appbar } from 'react-native-paper';
+=======
+import { StyleSheet } from "react-native";
+import PerfilScreen from "../screens/ConfigurationScreen/ConfigurationScreen";
+>>>>>>> 3f94b8b9394a7e4f2cedc6a0e33e6e32123a5029
 
 // Importação da logo do projeto
 import logo from '../../assets/joypetz.png'; // Verifique o caminho correto para a logo
