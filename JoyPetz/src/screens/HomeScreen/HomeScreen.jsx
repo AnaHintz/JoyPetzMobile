@@ -44,7 +44,7 @@ export default function HomeScreen() {
           closeModal();
         }}
       >
-        <View style={styles.container}>
+        <View style={styles.containerUp}>
           <View style={styles.modalView2}>
             {selectedItem && (
               <View style={styles.post}>
@@ -75,7 +75,7 @@ export default function HomeScreen() {
           <View style={styles.post}>
             <Image source={{ uri: item.imageUrl }} style={styles.image} />
             <Text>{item.name}</Text>
-            <Button onPress={() => openModal(item)}  style={[styles.button, styles.buttonOpen]}>Ver mais</Button>
+            <Button onPress={() => openModal(item)} style={[styles.button, styles.buttonOpen]}>Ver mais</Button>
           </View>
         )}
       />
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:"gray",
+    backgroundColor: "gray",
   },
   post: {
     marginBottom: 20,
@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 30,
   },
   modalView2: {
     margin: 20,
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     elevation: 2,
-    width:300,
+    width: 300,
   },
   buttonOpen: {
     backgroundColor: '#F194FF',

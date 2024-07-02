@@ -19,7 +19,6 @@ export default function PublicarScreen({ navigation }) {
   const [selectedAge, setSelectedAge] = useState('2 meses');
   const [selectedSex, setSelectedSex] = useState('Fêmea');
   const [uploading, setUploading] = useState(false);
-  
 
   const generateAgeOptions = () => {
     const options = [];
