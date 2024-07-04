@@ -74,8 +74,16 @@ export default function HomeScreen() {
         renderItem={({ item }) => (
           <View style={styles.post}>
             <Image source={{ uri: item.imageUrl }} style={styles.image} />
-            <Text>{item.name}</Text>
-            <Button onPress={() => openModal(item)} style={[styles.button, styles.buttonOpen]}>Ver mais</Button>
+            <View style={styles.infoContainer}>
+              <Text style={styles.name}>{item.name}</Text>
+              <Button
+                onPress={() => openModal(item)}
+                style={[styles.button, styles.buttonOpen]}
+                labelStyle={styles.buttonText} // Aplica o estilo de texto aqui
+              >
+                Ver mais
+              </Button>
+            </View>
           </View>
         )}
       />
@@ -91,16 +99,18 @@ const styles = StyleSheet.create({
     backgroundColor: "gray",
   },
   post: {
+    backgroundColor: "#DCDCDC",
     marginBottom: 20,
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
     paddingBottom: 10,
+    borderRadius: 45,
   },
   image: {
     width: "100%",
     height: 300,
     marginBottom: 10,
-    borderRadius: 10,
+    borderRadius: 45,
   },
   centeredView: {
     flex: 1,
@@ -122,13 +132,12 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   button: {
-    borderRadius: 20,
+    borderRadius: 40,
     padding: 10,
     elevation: 2,
-    width: 300,
   },
   buttonOpen: {
-    backgroundColor: '#F194FF',
+    backgroundColor: 'hotpink',
   },
   buttonClose: {
     backgroundColor: '#2196F3',
@@ -141,5 +150,21 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
+  },
+  infoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
+  },
+  name: {
+    flex: 1,
+    color: 'black',
+    marginRight: 10,
+    fontSize: 20,
+  },
+  buttonText: {
+    fontSize: 20, // Aumenta levemente o tamanho da fonte
+    color: 'white', // Altera a cor da fonte para branco
   },
 });

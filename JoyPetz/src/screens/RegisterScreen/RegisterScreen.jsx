@@ -4,7 +4,7 @@ import { Button, Icon, Text, TextInput } from "react-native-paper";
 import { styles } from "../../config/Style";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
- 
+
 export default function RegisterScreen({ navigation }) {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -12,33 +12,33 @@ export default function RegisterScreen({ navigation }) {
   const [repetirSenha, setRepetirSenha] = useState("");
   const [hidePassword, setHidePassword] = useState("");
   const [error, setError] = useState("");
- 
+
   const handleRegister = () => {
     // Verificar se os campos de email, senha e repetir senha estão preenchidos
-    if ( !email.trim() || !senha.trim() || !repetirSenha.trim()) {
+    if (!email.trim() || !senha.trim() || !repetirSenha.trim()) {
       setError("Por favor, preencha todos os campos.");
       return;
     }
- 
+
     // Verificar se as senhas são iguais
     else if (senha !== repetirSenha) {
       setError("As senhas não estão iguais. Por favor, tente novamente.");
       return;
     }
- 
+
     try {
       const userRef = createUserWithEmailAndPassword(auth, email, senha);
       if (userRef) {
         console.log("Usuário registrado com sucesso!");
         navigation.navigate("Login");
       }
- 
+
     } catch (e) {
       console.error(e);
     }
- 
+
   };
- 
+
   return (
     <View style={estilo.container}>
       <View style={estilo.header}>
@@ -50,17 +50,6 @@ export default function RegisterScreen({ navigation }) {
       <View style={estilo.separator} />
       <View style={estilo.formContainer}>
         {error ? <Text style={styles.errorText}>{error}</Text> : null}
-        <View style={estilo.input}>
-          <Text style={{ color: 'hotpink' }}>Nome de Usuário</Text>
-          <TextInput
-            activeUnderlineColor="hotpink"
-            label={"Nome"}
-            placeholder={"Digite seu nome"}
-            value={userName}
-            onChangeText={setUserName}
-            style={styles.input}
-          />
-        </View>
         <View style={estilo.input2}>
           <Text style={{ color: 'hotpink' }}>Email</Text>
           <TextInput
@@ -118,7 +107,7 @@ export default function RegisterScreen({ navigation }) {
     </View>
   );
 }
- 
+
 const estilo = StyleSheet.create({
   container: {
     flex: 1,

@@ -19,7 +19,7 @@ export default function LoginScreen({ navigation }) {
             setError("Por favor, preencha todos os campos.");
             setLoading(false);
             return;
-        } 
+        }
 
         try {
             const userRef = await signInWithEmailAndPassword(auth, email, senha);
@@ -34,7 +34,6 @@ export default function LoginScreen({ navigation }) {
 
         setLoading(false);
     };
-    // exportar variável para outro documento
     module.exports = email;
 
     return (
@@ -67,7 +66,7 @@ export default function LoginScreen({ navigation }) {
                         placeholder={"Digite sua Senha"}
                         value={senha}
                         onChangeText={setSenha}
-                        secureTextEntry // Para esconder a senha
+                        secureTextEntry
                     />
                 </View>
                 <Button style={estilo.margimtopo} mode="contained" onPress={handleLogin} buttonColor="hotpink">
