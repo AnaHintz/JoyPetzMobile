@@ -11,24 +11,28 @@ export default function LoginScreen({ navigation }) {
     const [loading, setLoading] = useState(false);
 
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         setLoading(true);
+        setError("");
+
         if (!email.trim() || !senha.trim()) {
             setError("Por favor, preencha todos os campos.");
+            setLoading(false);
             return;
-        } else {
-            navigation.navigate("Home");
-            setError("Credenciais inválidas. Por favor, tente novamente.");
-        }
+        } 
+
         try {
-            const userRef = signInWithEmailAndPassword(auth, email, senha);
+            const userRef = await signInWithEmailAndPassword(auth, email, senha);
             if (userRef) {
                 console.log("Usuário logado com sucesso!");
                 navigation.navigate("Home");
             }
         } catch (e) {
             console.error(e);
+            setError("Credenciais inválidas. Por favor, tente novamente.")
         }
+
+        setLoading(false);
     };
     // exportar variável para outro documento
     module.exports = email;
@@ -53,7 +57,6 @@ export default function LoginScreen({ navigation }) {
                         placeholder={"Digite seu e-mail"}
                         value={email}
                         onChangeText={setEmail}
-
                     />
                 </View>
                 <View style={estilo.input2}>
@@ -72,9 +75,6 @@ export default function LoginScreen({ navigation }) {
                 </Button>
                 <Button style={estilo.margimtopo} mode="contained" onPress={() => navigation.navigate("Register")} buttonColor="hotpink">
                     Registrar
-                </Button>
-                <Button textColor="hotpink">
-                    Esqueceu a senha?
                 </Button>
             </View>
         </View>
