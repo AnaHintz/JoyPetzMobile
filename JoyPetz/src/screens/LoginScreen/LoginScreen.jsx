@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Image, StyleSheet } from "react-native";
-import { Button, Text, TextInput } from "react-native-paper";
+import { Button, Text, TextInput, Icon } from "react-native-paper";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
 
@@ -9,6 +9,7 @@ export default function LoginScreen({ navigation }) {
     const [senha, setSenha] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const [hidePassword, setHidePassword] = useState("");
 
 
     const handleLogin = async () => {
@@ -35,6 +36,10 @@ export default function LoginScreen({ navigation }) {
         setLoading(false);
     };
     module.exports = email;
+
+    function senhao() {
+        hidePassword = true;
+    }
 
     return (
         <View style={estilo.container}>
@@ -66,7 +71,13 @@ export default function LoginScreen({ navigation }) {
                         placeholder={"Digite sua Senha"}
                         value={senha}
                         onChangeText={setSenha}
-                        secureTextEntry
+                        secureTextEntry={senhao}
+                        right={
+                            <Icon
+                                name={hidePassword ? "eye" : "eye-off"}
+                                onPress={() => setHidePassword(!hidePassword)}
+                            />
+                        }
                     />
                 </View>
                 <Button style={estilo.margimtopo} mode="contained" onPress={handleLogin} buttonColor="hotpink">

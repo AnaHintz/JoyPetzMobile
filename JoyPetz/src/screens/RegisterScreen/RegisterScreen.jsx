@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { View, Image, StyleSheet } from "react-native";
-import { Button, Icon, Text, TextInput } from "react-native-paper";
+import { Button, Icon, Surface, Text, TextInput } from "react-native-paper";
 import { styles } from "../../config/Style";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
 
 export default function RegisterScreen({ navigation }) {
-  const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [repetirSenha, setRepetirSenha] = useState("");
@@ -40,7 +39,7 @@ export default function RegisterScreen({ navigation }) {
   };
 
   return (
-    <View style={estilo.container}>
+    <Surface style={estilo.container}>
       <View style={estilo.header}>
         <Image
           source={require("../../../assets/joypetz.png")}
@@ -72,9 +71,9 @@ export default function RegisterScreen({ navigation }) {
             secureTextEntry={hidePassword}
             right={
               <Icon
-                name={hidePassword ? "eye" : "eye-off"}
-                onPress={() => setHidePassword(!hidePassword)}
-              />
+              name={hidePassword ? "eye" : "eye-off"}
+              onPress={() => setHidePassword(!hidePassword)}
+            />
             }
             style={styles.input}
           />
@@ -104,7 +103,7 @@ export default function RegisterScreen({ navigation }) {
           Voltar para o login
         </Button>
       </View>
-    </View>
+    </Surface>
   );
 }
 
