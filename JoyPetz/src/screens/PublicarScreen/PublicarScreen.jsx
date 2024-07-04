@@ -98,6 +98,16 @@ export default function PublicarScreen({ navigation }) {
     }
   };
 
+  const formatarTelefone = (telefone) => {
+    // Remove todos os caracteres que não são dígitos
+    telefone = telefone.replace(/\D/g, "");
+
+    // Formatação para (99) 99999-9999
+    telefone = telefone.replace(/^(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+
+    return telefone;
+  }
+
   return (
     <View style={publi.container}>
       <View style={styles.container}>
@@ -141,7 +151,13 @@ export default function PublicarScreen({ navigation }) {
         <Text style={styles.label}>Raça</Text>
         <TextInput label="Raça" value={raca} onChangeText={setRaca} />
         <Text style={styles.label}>Contato</Text>
-        <TextInput label="Contato" value={contato} onChangeText={setContato} />
+        <TextInput
+          label="Contato"
+          value={contato}
+          onChangeText={(text) => setContato(formatarTelefone(text))}
+          keyboardType="phone-pad" // Define o teclado para entrada de telefone
+          placeholder="(DDD) Número de telefone"
+        />
         <Text style={styles.desc}>Descrição</Text>
         { }
         <TextInput

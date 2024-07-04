@@ -12,6 +12,8 @@ export default function PerfilScreen() {
   const [editMode, setEditMode] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [editedData, setEditedData] = useState({});
+  const [deleteConfirmationVisible, setDeleteConfirmationVisible] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState(null);
   const emailUser = require('../LoginScreen/LoginScreen');
 
   useEffect(() => {
@@ -66,9 +68,20 @@ export default function PerfilScreen() {
       await deleteDoc(doc(db, 'posts', id));
       setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
       Alert.alert('Item deletado com sucesso!');
+      setDeleteConfirmationVisible(false);
     } catch (error) {
       Alert.alert('Erro ao deletar o item: ', error.message);
     }
+  };
+
+  const openDeleteConfirmationModal = (item) => {
+    setItemToDelete(item);
+    setDeleteConfirmationVisible(true);
+  };
+
+  const closeDeleteConfirmationModal = () => {
+    setItemToDelete(null);
+    setDeleteConfirmationVisible(false);
   };
 
   return (
@@ -165,6 +178,37 @@ export default function PerfilScreen() {
           </View>
         </View>
       </Modal>
+
+      <Modal
+        animationType="slide"
+        transparent={false}
+        visible={deleteConfirmationVisible}
+        onRequestClose={closeDeleteConfirmationModal}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Tem certeza que deseja excluir esta publicação?</Text>
+            <View style={styles.modalButtons}>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={closeDeleteConfirmationModal}
+              >
+                <Text style={styles.textStyle}>Cancelar</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.button, styles.buttonDelete]}
+                onPress={() => {
+                  deletePost(itemToDelete.id);
+                  closeDeleteConfirmationModal();
+                }}
+              >
+                <Text style={styles.textStyle}>Confirmar</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
       <Text><Entypo name="user" size={24} color="black" /> Olá {emailUser}</Text>
       <Text>Suas Publicações</Text>
       <FlatList
@@ -175,8 +219,8 @@ export default function PerfilScreen() {
             <Image source={{ uri: item.imageUrl }} style={styles.image} />
             <Text>{item.name}</Text>
             <Button onPress={() => openModal(item)} style={[styles.button, styles.buttonOpen]}>Ver mais</Button>
-            <Button onPress={() => deletePost(item.id)} style={[styles.button, styles.buttonClose]}>Excluir</Button>
-          </View>
+            <Button onPress={() => openDeleteConfirmationModal(item)} style={[styles.button, styles.buttonClose]}>Excluir</Button>
+            </View>
         )}
       />
     </Surface>
@@ -239,7 +283,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#4CAF50',
   },
   textStyle: {
-    color: 'white',
+    color: 'preto',
     fontWeight: 'bold',
     textAlign: 'center',
   },
