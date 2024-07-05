@@ -54,20 +54,18 @@ export default function LoginScreen({ navigation }) {
             <View style={estilo.formContainer}>
                 {error ? <Text style={estilo.errorText}>{error}</Text> : null}
                 <View style={estilo.input}>
-                    <Text>Email</Text>
+                    <Text style={{ color: 'hotpink' }}>Email</Text>
                     <TextInput
                         activeUnderlineColor="hotpink"
-                        label={"Email"}
                         placeholder={"Digite seu e-mail"}
                         value={email}
                         onChangeText={setEmail}
                     />
                 </View>
                 <View style={estilo.input2}>
-                    <Text>Senha</Text>
+                    <Text style={{ color: 'hotpink' }}>Senha</Text>
                     <TextInput
                         activeUnderlineColor="hotpink"
-                        label={"Senha"}
                         placeholder={"Digite sua Senha"}
                         value={senha}
                         onChangeText={setSenha}

@@ -53,7 +53,6 @@ export default function RegisterScreen({ navigation }) {
           <Text style={{ color: 'hotpink' }}>Email</Text>
           <TextInput
             activeUnderlineColor="hotpink"
-            label={"Email"}
             placeholder={"Digite seu e-mail"}
             value={email}
             onChangeText={setEmail}
@@ -64,16 +63,15 @@ export default function RegisterScreen({ navigation }) {
           <Text style={{ color: 'hotpink' }}>Senha</Text>
           <TextInput
             activeUnderlineColor="hotpink"
-            label={"Senha"}
             placeholder={"Digite sua Senha"}
             value={senha}
             onChangeText={setSenha}
             secureTextEntry={hidePassword}
             right={
               <Icon
-              name={hidePassword ? "eye" : "eye-off"}
-              onPress={() => setHidePassword(!hidePassword)}
-            />
+                name={hidePassword ? "eye" : "eye-off"}
+                onPress={() => setHidePassword(!hidePassword)}
+              />
             }
             style={styles.input}
           />

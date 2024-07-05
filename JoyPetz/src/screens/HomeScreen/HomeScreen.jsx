@@ -49,20 +49,22 @@ export default function HomeScreen() {
             {selectedItem && (
               <View style={styles.post}>
                 <Image source={{ uri: selectedItem.imageUrl }} style={styles.image} />
-                <Text style={styles.modalText}>{selectedItem.name}</Text>
-                <Text>sexo: {selectedItem.selectedSex}</Text>
-                <Text>idade: {selectedItem.selectedAge}</Text>
-                <Text>espécie: {selectedItem.especie}</Text>
-                <Text>raça: {selectedItem.raca}</Text>
-                <Text>contato: {selectedItem.contato}</Text>
-                <Text>descrição: {selectedItem.desc}</Text>
+                <View style={styles.mdFtEspc}>
+                  <Text style={[styles.modalText, styles.modalFont]}>{selectedItem.name}</Text>
+                  <Text style={styles.label}>Sexo: <Text style={styles.info}>{selectedItem.selectedSex}</Text></Text>
+                  <Text style={styles.label}>Idade: <Text style={styles.info}>{selectedItem.selectedAge}</Text></Text>
+                  <Text style={styles.label}>Espécie: <Text style={styles.info}>{selectedItem.especie}</Text></Text>
+                  <Text style={styles.label}>Raça: <Text style={styles.info}>{selectedItem.raca}</Text></Text>
+                  <Text style={styles.label}>Contato: <Text style={styles.info}>{selectedItem.contato}</Text></Text>
+                  <Text style={styles.label}>Descrição: <Text style={styles.info}>{selectedItem.desc}</Text></Text>
+                </View>
               </View>
             )}
             <Pressable
               onPress={closeModal}
-              style={[styles.button, styles.buttonClose]}
+              style={[styles.button, styles.buttonOpen]}
             >
-              <Text style={styles.textStyle}>Hide Modal</Text>
+              <Text style={styles.buttonTextModal}>Voltar</Text>
             </Pressable>
           </View>
         </View>
@@ -79,7 +81,7 @@ export default function HomeScreen() {
               <Button
                 onPress={() => openModal(item)}
                 style={[styles.button, styles.buttonOpen]}
-                labelStyle={styles.buttonText} // Aplica o estilo de texto aqui
+                labelStyle={styles.buttonText}
               >
                 Ver mais
               </Button>
@@ -105,6 +107,18 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ddd",
     paddingBottom: 10,
     borderRadius: 45,
+  },
+  modalFont: {
+    paddingTop: 5,
+    fontSize: 20,
+  },
+  modalFontEspc: {
+    paddingTop: 5,
+    paddingBottom: 5,
+    fontSize: 20,
+  },
+  mdFtEspc: {
+    marginLeft: 30,
   },
   image: {
     width: "100%",
@@ -166,5 +180,18 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 20, // Aumenta levemente o tamanho da fonte
     color: 'white', // Altera a cor da fonte para branco
+  },
+  buttonTextModal: {
+    color: 'white',
+    textAlign: 'center', // Centraliza o texto
+  },
+  label: {
+    color: 'hotpink', // Cor dos tópicos em rosa
+    fontWeight: 'bold', // Negrito para os tópicos em rosa
+    fontSize: 20, // Tamanho da fonte dos tópicos
+  },
+  info: {
+    color: 'black', // Mantém a cor das informações ao lado dos tópicos
+    fontSize: 20, // Tamanho da fonte das informações
   },
 });
