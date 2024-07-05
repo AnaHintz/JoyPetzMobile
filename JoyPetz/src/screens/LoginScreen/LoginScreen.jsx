@@ -9,7 +9,7 @@ export default function LoginScreen({ navigation }) {
     const [senha, setSenha] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-    const [hidePassword, setHidePassword] = useState("");
+    const [hidePassword, setHidePassword] = useState(true);
 
 
     const handleLogin = async () => {
@@ -36,10 +36,6 @@ export default function LoginScreen({ navigation }) {
         setLoading(false);
     };
     module.exports = email;
-
-    function senhao() {
-        hidePassword = true;
-    }
 
     return (
         <View style={estilo.container}>
@@ -69,12 +65,12 @@ export default function LoginScreen({ navigation }) {
                         placeholder={"Digite sua Senha"}
                         value={senha}
                         onChangeText={setSenha}
-                        secureTextEntry={senhao}
+                        secureTextEntry={hidePassword}
                         right={
-                            <Icon
-                                name={hidePassword ? "eye" : "eye-off"}
-                                onPress={() => setHidePassword(!hidePassword)}
-                            />
+                          <TextInput.Icon
+                            icon={hidePassword ? "eye" : "eye-off"}
+                            onPress={() => setHidePassword(!hidePassword)}
+                          />
                         }
                     />
                 </View>

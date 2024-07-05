@@ -68,8 +68,8 @@ export default function RegisterScreen({ navigation }) {
             onChangeText={setSenha}
             secureTextEntry={hidePassword}
             right={
-              <Icon
-                name={hidePassword ? "eye" : "eye-off"}
+              <TextInput.Icon
+                icon={hidePassword ? "eye" : "eye-off"}
                 onPress={() => setHidePassword(!hidePassword)}
               />
             }
@@ -80,15 +80,15 @@ export default function RegisterScreen({ navigation }) {
           <Text style={{ color: 'hotpink' }}>Confimação da Senha</Text>
           <TextInput
             activeUnderlineColor="hotpink"
-            label={"Repetir senha"}
+
             placeholder={"Repita sua senha"}
             value={repetirSenha}
             onChangeText={setRepetirSenha}
             style={styles.esp}
             secureTextEntry={hidePassword}
             right={
-              <Icon
-                name={hidePassword ? "eye" : "eye-off"}
+              <TextInput.Icon
+                icon={hidePassword ? "eye" : "eye-off"}
                 onPress={() => setHidePassword(!hidePassword)}
               />
             }

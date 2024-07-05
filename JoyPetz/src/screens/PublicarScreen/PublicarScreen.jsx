@@ -111,8 +111,8 @@ export default function PublicarScreen({ navigation }) {
     <View style={publi.container}>
       <View style={styles.container}>
         <TouchableOpacity style={publi.toque} onPress={pickImage}>
-          <FontAwesome name="camera" size={21} color="black" style={publi.icon} />
-          <Text style={publi.text}>Adicionar foto</Text>
+          <FontAwesome name="camera" size={21} color="white" style={publi.icon} />
+          <Text style={publi.text}  >Adicionar foto</Text>
         </TouchableOpacity>
 
         <Text style={styles.label}>Nome</Text>
@@ -167,7 +167,7 @@ export default function PublicarScreen({ navigation }) {
           onChangeText={setDesc}
           style={styles.descInput}
         />
-        <Button style={styles.publicar} mode="contained" onPress={uploadImage} disabled={uploading} buttonColor="hotpink">Publicar</Button>
+        <Button style={styles.publicar} mode="contained" onPress={uploadImage} disabled={uploading} buttonColor="hotpink" >Publicar</Button>
       </View>
     </View>
   );
@@ -178,6 +178,7 @@ const publi = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    
   },
   toque: {
     flexDirection: 'row',
@@ -195,6 +196,7 @@ const publi = StyleSheet.create({
     marginLeft: 8,
   },
   text: {
+    color: "white",
     fontSize: 13,
     marginRight: 8,
   },

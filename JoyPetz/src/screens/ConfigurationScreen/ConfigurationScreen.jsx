@@ -4,9 +4,11 @@ import { Button, Surface, Text } from "react-native-paper";
 import { collection, query, orderBy, onSnapshot, deleteDoc, updateDoc, doc } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import * as React from 'react';
-import { Entypo } from '@expo/vector-icons';
+import { Entypo, FontAwesome5 } from '@expo/vector-icons';
+import { useTheme } from '../../contexts/ThemeContext';
 
 export default function PerfilScreen() {
+  const {toggleTheme, isDarkTheme} = useTheme();
   const [posts, setPosts] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -210,6 +212,15 @@ export default function PerfilScreen() {
       </Modal>
 
       <Text><Entypo name="user" size={24} color="black" /> Olá {emailUser}</Text>
+      <Button 
+      mode="contained" 
+      buttonColor="hotpink" 
+      onPress={toggleTheme}
+      icon={() => <FontAwesome5 name="moon" size={20} color="white" />}
+    >
+      Alternar tema
+    </Button>
+
       <Text>Suas Publicações</Text>
       <FlatList
         data={posts}
@@ -298,4 +309,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
   },
+  
 });
+
+
