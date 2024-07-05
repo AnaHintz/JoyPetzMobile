@@ -70,8 +70,8 @@ export default function RegisterScreen({ navigation }) {
             onChangeText={setSenha}
             secureTextEntry={hidePassword}
             right={
-              <Icon
-              name={hidePassword ? "eye" : "eye-off"}
+              <TextInput.Icon
+              icon={hidePassword ? "eye" : "eye-off"}
               onPress={() => setHidePassword(!hidePassword)}
             />
             }
@@ -89,8 +89,8 @@ export default function RegisterScreen({ navigation }) {
             style={styles.esp}
             secureTextEntry={hidePassword}
             right={
-              <Icon
-                name={hidePassword ? "eye" : "eye-off"}
+              <TextInput.Icon
+                icon={hidePassword ? "eye" : "eye-off"}
                 onPress={() => setHidePassword(!hidePassword)}
               />
             }
