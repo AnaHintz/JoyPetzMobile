@@ -20,7 +20,7 @@ export default function LoginScreen({ navigation }) {
             setError("Por favor, preencha todos os campos.");
             setLoading(false);
             return;
-        } 
+        }
 
         try {
             const userRef = await signInWithEmailAndPassword(auth, email, senha);
@@ -35,7 +35,6 @@ export default function LoginScreen({ navigation }) {
 
         setLoading(false);
     };
-    // exportar variável para outro documento
     module.exports = email;
 
     return (

@@ -87,7 +87,6 @@ export default function PublicarScreen({ navigation }) {
         createdAt: new Date(),
         email: require('../LoginScreen/LoginScreen'),
       });
-      //-${selectedSex}-${selectedAge}-${especie}-${raca}-${contato}-${desc}
       console.log("Upload realizado com sucesso:", downloadURL);
       setUploading(false);
       setImage(null);
@@ -117,9 +116,9 @@ export default function PublicarScreen({ navigation }) {
         </TouchableOpacity>
 
         <Text style={styles.label}>Nome</Text>
-        <TextInput label="Nome" value={name} onChangeText={setName} />
+        <TextInput activeUnderlineColor="hotpink" label="Nome" value={name} onChangeText={setName} />
 
-        {/* Adicionando um View para alinhar Idade e Sexo em linha */}
+        { }
         <View style={styles.inlineContainer}>
           <View style={styles.inlineItem}>
             <Text style={styles.label}>Idade</Text>
@@ -147,9 +146,9 @@ export default function PublicarScreen({ navigation }) {
         </View>
 
         <Text style={styles.label}>Especie</Text>
-        <TextInput label="Espécie" value={especie} onChangeText={setEspecie} />
-        <Text style={styles.label}>Raça</Text>
-        <TextInput label="Raça" value={raca} onChangeText={setRaca} />
+        <TextInput activeUnderlineColor="hotpink" label="Espécie" value={especie} onChangeText={setEspecie} />
+        <Text activeUnderlineColor="hotpink" style={styles.label}>Raça</Text>
+        <TextInput activeUnderlineColor="hotpink" label="Raça" value={raca} onChangeText={setRaca} />
         <Text style={styles.label}>Contato</Text>
         <TextInput
           label="Contato"
@@ -161,6 +160,7 @@ export default function PublicarScreen({ navigation }) {
         <Text style={styles.desc}>Descrição</Text>
         { }
         <TextInput
+          activeUnderlineColor="hotpink"
           label="Adicione uma descrição..."
           multiline
           value={desc}
