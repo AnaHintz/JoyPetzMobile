@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Image, StyleSheet } from "react-native";
-import { Button, Text, TextInput, Icon } from "react-native-paper";
+import { Button, Text, TextInput, } from "react-native-paper";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
 

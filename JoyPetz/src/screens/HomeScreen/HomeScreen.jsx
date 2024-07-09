@@ -1,27 +1,35 @@
 import { useState, useEffect } from "react";
-import { View, FlatList, Image, StyleSheet, Modal, Pressable } from "react-native";
-import { Button, Surface, Text } from "react-native-paper";
-import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
+import { View, FlatList, Image, StyleSheet, Modal, Pressable, Alert } from "react-native";
+import { Button, Surface, Text, TextInput } from "react-native-paper";
+import { collection, query, orderBy, onSnapshot, where } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import * as React from 'react';
+import { FontAwesome5 } from "@expo/vector-icons";
+import { Picker } from "@react-native-picker/picker";
 
 export default function HomeScreen() {
   const [posts, setPosts] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [pesquisa, setPesquisa] = useState(null);
 
   useEffect(() => {
-    const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+    let q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+    if (pesquisa) {
+      q = query(collection(db, "posts"),
+      where("especie", "==", pesquisa),
+      orderBy("createdAt", "desc"));
+    }
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const postsArray = [];
       querySnapshot.forEach((doc) => {
-        postsArray.push({ ...doc.data(), id: doc.id });
+          postsArray.push({ ...doc.data(), id: doc.id });
       });
       setPosts(postsArray);
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [pesquisa]);
 
   const openModal = (item) => {
     setSelectedItem(item);
@@ -32,9 +40,35 @@ export default function HomeScreen() {
     setSelectedItem(null);
     setModalVisible(false);
   };
+  const Pesquisar = () => {
+    setPesquisa(pesquisa)
+  }
 
   return (
     <Surface style={styles.centeredView}>
+      <View style={styles.pesq}>
+        <Text
+          icon={() => <FontAwesome5 name="filter" size={20} color="hotpink" />}
+          style={styles.label}
+        >Filtrar</Text>
+        <Picker
+          selectedValue={pesquisa}
+          onValueChange={(itemValue) => setPesquisa(itemValue)}
+          style={styles.pesq2}
+        >
+          <Picker.Item label="Selecionar" />
+          <Picker.Item label="Cão" value="Cão" />
+          <Picker.Item label="Gato" value="Gato" />
+          <Picker.Item label="Pássaro" value="Pássaro" />
+          <Picker.Item label="Roedor" value="Roedor" />
+          <Picker.Item label="Aquático" value="Aquático" />
+        </Picker>
+        <Button 
+        style={[styles.buttonClose, styles.buttonText]}
+        onPress={Pesquisar}
+        >Pesquisar
+        </Button>
+      </View>
       <Modal
         animationType="slide"
         transparent={false}
@@ -71,7 +105,7 @@ export default function HomeScreen() {
       </Modal>
 
       <FlatList
-        data={posts}
+        data={pesquisa ? posts.filter(post => post.especie === pesquisa) : posts}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.post}>
@@ -160,6 +194,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+    color: 'white',
   },
   modalText: {
     marginBottom: 15,
@@ -194,4 +229,15 @@ const styles = StyleSheet.create({
     color: 'black', // Mantém a cor das informações ao lado dos tópicos
     fontSize: 20, // Tamanho da fonte das informações
   },
+  pesq: {
+    flex: 1,
+    flexDirection: 'row',
+    marginTop: 10,
+    marginBottom:50,
+  }, 
+  pesq2: {
+    height: 30,
+    width: 120,
+    marginLeft: 10,
+  }
 });

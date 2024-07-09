@@ -217,7 +217,7 @@ export default function PerfilScreen() {
       buttonColor="hotpink" 
       onPress={toggleTheme}
       icon={() => <FontAwesome5 name="moon" size={20} color="white" />}
-    >
+     >
       Alternar tema
     </Button>
 

@@ -116,7 +116,7 @@ export default function PublicarScreen({ navigation }) {
         </TouchableOpacity>
 
         <Text style={styles.label}>Nome</Text>
-        <TextInput activeUnderlineColor="hotpink" label="Nome" value={name} onChangeText={setName} />
+        <TextInput activeUnderlineColor="hotpink" placeholder="Digite o nome..." value={name} onChangeText={setName} />
 
         { }
         <View style={styles.inlineContainer}>
@@ -145,23 +145,34 @@ export default function PublicarScreen({ navigation }) {
           </View>
         </View>
 
-        <Text style={styles.label}>Especie</Text>
-        <TextInput activeUnderlineColor="hotpink" label="Espécie" value={especie} onChangeText={setEspecie} />
+        <Text style={styles.label}>Espécie</Text>
+        <Picker
+          selectedValue={especie}
+          onValueChange={(itemValue) => setEspecie(itemValue)}
+          style={styles.picker}
+        >
+          <Picker.Item label="Cão" value="Cão" />
+          <Picker.Item label="Gato" value="Gato" />
+          <Picker.Item label="Pássaro" value="Pássaro" />
+          <Picker.Item label="Roedor" value="Roedor" />
+          <Picker.Item label="Aquático" value="Aquático" />
+        </Picker>
+
         <Text activeUnderlineColor="hotpink" style={styles.label}>Raça</Text>
-        <TextInput activeUnderlineColor="hotpink" label="Raça" value={raca} onChangeText={setRaca} />
+        <TextInput activeUnderlineColor="hotpink" placeholder="Digite a raça..." value={raca} onChangeText={setRaca} />
         <Text style={styles.label}>Contato</Text>
         <TextInput
-          label="Contato"
           value={contato}
           onChangeText={(text) => setContato(formatarTelefone(text))}
           keyboardType="phone-pad" // Define o teclado para entrada de telefone
           placeholder="(DDD) Número de telefone"
+          activeUnderlineColor="hotpink"  
         />
         <Text style={styles.desc}>Descrição</Text>
         { }
         <TextInput
           activeUnderlineColor="hotpink"
-          label="Adicione uma descrição..."
+          placeholder="Adicione uma descrição..."
           multiline
           value={desc}
           onChangeText={setDesc}
@@ -178,7 +189,7 @@ const publi = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    
+
   },
   toque: {
     flexDirection: 'row',
