@@ -178,7 +178,7 @@ const publi = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    
+
   },
   toque: {
     flexDirection: 'row',
