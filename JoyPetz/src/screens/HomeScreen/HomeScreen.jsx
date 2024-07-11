@@ -11,15 +11,17 @@ export default function HomeScreen() {
   const [posts, setPosts] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [pesquisa, setPesquisa] = useState(null);
+  const [pesquisa, setPesquisa] = useState(false);
 
   useEffect(() => {
     let q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+
     if (pesquisa) {
       q = query(collection(db, "posts"),
-      where("especie", "==", pesquisa),
+      where("especie", "===", pesquisa),
       orderBy("createdAt", "desc"));
     }
+    
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const postsArray = [];
       querySnapshot.forEach((doc) => {
@@ -40,8 +42,9 @@ export default function HomeScreen() {
     setSelectedItem(null);
     setModalVisible(false);
   };
-  const Pesquisar = () => {
-    setPesquisa(pesquisa)
+
+  const Pesquisar = (itemvalue) => {
+    setPesquisa(itemvalue);
   }
 
   return (
@@ -50,24 +53,19 @@ export default function HomeScreen() {
         <Text
           icon={() => <FontAwesome5 name="filter" size={20} color="hotpink" />}
           style={styles.label}
-        >Filtrar</Text>
+        >Buscar por Espécie: </Text>
         <Picker
           selectedValue={pesquisa}
-          onValueChange={(itemValue) => setPesquisa(itemValue)}
+          onValueChange={Pesquisar}
           style={styles.pesq2}
         >
-          <Picker.Item label="Selecionar" />
+          <Picker.Item label="Todos" value={false}/>
           <Picker.Item label="Cão" value="Cão" />
           <Picker.Item label="Gato" value="Gato" />
           <Picker.Item label="Pássaro" value="Pássaro" />
           <Picker.Item label="Roedor" value="Roedor" />
           <Picker.Item label="Aquático" value="Aquático" />
         </Picker>
-        <Button 
-        style={[styles.buttonClose, styles.buttonText]}
-        onPress={Pesquisar}
-        >Pesquisar
-        </Button>
       </View>
       <Modal
         animationType="slide"
