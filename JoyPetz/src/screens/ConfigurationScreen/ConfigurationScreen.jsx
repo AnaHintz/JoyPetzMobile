@@ -4,11 +4,11 @@ import { Button, Surface, Text } from "react-native-paper";
 import { collection, query, orderBy, onSnapshot, deleteDoc, updateDoc, doc } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import * as React from 'react';
-import { Entypo, FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import { useTheme } from '../../contexts/ThemeContext';
 
 export default function PerfilScreen() {
-  const {toggleTheme, isDarkTheme} = useTheme();
+  const { toggleTheme, isDarkTheme } = useTheme();
   const [posts, setPosts] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -210,16 +210,15 @@ export default function PerfilScreen() {
           </View>
         </View>
       </Modal>
-
-      <Text><Entypo name="user" size={24} color="black" /> Olá {emailUser}</Text>
-      <Button 
-      mode="contained" 
-      buttonColor="hotpink" 
-      onPress={toggleTheme}
-      icon={() => <FontAwesome5 name="moon" size={20} color="white" />}
-     >
-      Alternar tema
-    </Button>
+      <Text style={{ color: 'hotpink' }} ><FontAwesome5 name="user-circle" size={40} color="hotpink" /> Olá {emailUser}</Text>
+      <Button
+        mode="contained"
+        buttonColor="hotpink"
+        onPress={toggleTheme}
+        icon={() => <FontAwesome5 name="moon" size={20} color="white" />}
+      >
+        Alternar tema
+      </Button>
 
       <Text>Suas Publicações</Text>
       <FlatList
@@ -228,10 +227,24 @@ export default function PerfilScreen() {
         renderItem={({ item }) => (
           <View style={styles.post}>
             <Image source={{ uri: item.imageUrl }} style={styles.image} />
-            <Text>{item.name}</Text>
-            <Button onPress={() => openModal(item)} style={[styles.button, styles.buttonOpen]}>Ver mais</Button>
-            <Button onPress={() => openDeleteConfirmationModal(item)} style={[styles.button, styles.buttonClose]}>Excluir</Button>
+            <View style={styles.infoContainer}>
+              <Text style={styles.name}>{item.name}</Text>
+              <Button
+                onPress={() => openModal(item)}
+                style={[styles.button, styles.buttonOpen]}
+                labelStyle={styles.buttonText}
+              >
+                Ver mais
+              </Button>
+              <Button
+                onPress={() => openDeleteConfirmationModal(item)}
+                style={[styles.button, styles.buttonClose]}
+                labelStyle={styles.buttonText}
+              >
+                Excluir
+              </Button>
             </View>
+          </View>
         )}
       />
     </Surface>
@@ -246,16 +259,24 @@ const styles = StyleSheet.create({
     backgroundColor: "gray",
   },
   post: {
+    backgroundColor: "#DCDCDC",
     marginBottom: 20,
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
     paddingBottom: 10,
+    borderRadius: 45,
+  },
+  infoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
   },
   image: {
     width: "100%",
     height: 300,
     marginBottom: 10,
-    borderRadius: 10,
+    borderRadius: 45,
   },
   centeredView: {
     flex: 1,
@@ -276,13 +297,29 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   button: {
-    borderRadius: 20,
+    borderRadius: 40,
     padding: 10,
     elevation: 2,
-    width: 300,
   },
   buttonOpen: {
-    backgroundColor: '#F194FF',
+    backgroundColor: 'hotpink',
+  },
+  buttonText: {
+    fontSize: 20, // Aumenta levemente o tamanho da fonte
+    color: 'white', // Altera a cor da fonte para branco
+  },
+  buttonTextModal: {
+    color: 'white',
+    textAlign: 'center', // Centraliza o texto
+  },
+  name: {
+    flex: 1,
+    color: 'black',
+    marginRight: 10,
+    fontSize: 20,
+  },
+  buttonOpen: {
+    backgroundColor: 'hotpink',
   },
   buttonClose: {
     backgroundColor: '#2196F3',
@@ -294,7 +331,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#4CAF50',
   },
   textStyle: {
-    color: 'preto',
+    color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -309,7 +346,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
   },
-  
+
 });
 
 
