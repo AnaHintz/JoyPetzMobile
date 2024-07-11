@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { View, FlatList, Image, StyleSheet, Modal, Pressable, Alert } from "react-native";
-import { Button, Surface, Text, TextInput } from "react-native-paper";
+import { Button, Surface, Text } from "react-native-paper";
 import { collection, query, orderBy, onSnapshot, where } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import * as React from 'react';
@@ -11,22 +11,30 @@ export default function HomeScreen() {
   const [posts, setPosts] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [pesquisa, setPesquisa] = useState(false);
+  const [pesquisa, setPesquisa] = useState(null);
+  const [resultadosVazios, setResultadosVazios] = useState(false);
 
   useEffect(() => {
     let q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
 
     if (pesquisa) {
       q = query(collection(db, "posts"),
-      where("especie", "===", pesquisa),
-      orderBy("createdAt", "desc"));
+        where("especie", "==", pesquisa),
+        orderBy("createdAt", "desc"));
     }
-    
+
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const postsArray = [];
       querySnapshot.forEach((doc) => {
-          postsArray.push({ ...doc.data(), id: doc.id });
+        postsArray.push({ ...doc.data(), id: doc.id });
       });
+
+      if (postsArray.length === 0) {
+        setResultadosVazios(true);
+      } else {
+        setResultadosVazios(false);
+      }
+
       setPosts(postsArray);
     });
 
@@ -44,8 +52,8 @@ export default function HomeScreen() {
   };
 
   const Pesquisar = (itemvalue) => {
-    setPesquisa(itemvalue);
-  }
+    setPesquisa(itemvalue === "Todos" ? null : itemvalue)
+  };
 
   return (
     <Surface style={styles.centeredView}>
@@ -59,7 +67,7 @@ export default function HomeScreen() {
           onValueChange={Pesquisar}
           style={styles.pesq2}
         >
-          <Picker.Item label="Todos" value={false}/>
+          <Picker.Item label="Todos" value="Todos" />
           <Picker.Item label="Cão" value="Cão" />
           <Picker.Item label="Gato" value="Gato" />
           <Picker.Item label="Pássaro" value="Pássaro" />
@@ -67,6 +75,7 @@ export default function HomeScreen() {
           <Picker.Item label="Aquático" value="Aquático" />
         </Picker>
       </View>
+
       <Modal
         animationType="slide"
         transparent={false}
@@ -102,25 +111,29 @@ export default function HomeScreen() {
         </View>
       </Modal>
 
-      <FlatList
-        data={pesquisa ? posts.filter(post => post.especie === pesquisa) : posts}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.post}>
-            <Image source={{ uri: item.imageUrl }} style={styles.image} />
-            <View style={styles.infoContainer}>
-              <Text style={styles.name}>{item.name}</Text>
-              <Button
-                onPress={() => openModal(item)}
-                style={[styles.button, styles.buttonOpen]}
-                labelStyle={styles.buttonText}
-              >
-                Ver mais
-              </Button>
+      {resultadosVazios && pesquisa !== null ? (
+        Alert.alert("Nenhuma publicação encontrada para esta espécie.")
+      ) : (
+        <FlatList
+          data={pesquisa ? posts.filter(post => post.especie === pesquisa) : posts}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.post}>
+              <Image source={{ uri: item.imageUrl }} style={styles.image} />
+              <View style={styles.infoContainer}>
+                <Text style={styles.name}>{item.name}</Text>
+                <Button
+                  onPress={() => openModal(item)}
+                  style={[styles.button, styles.buttonOpen]}
+                  labelStyle={styles.buttonText}
+                >
+                  Ver mais
+                </Button>
+              </View>
             </View>
-          </View>
-        )}
-      />
+          )}
+        />
+      )}
     </Surface>
   );
 }
@@ -231,8 +244,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     marginTop: 10,
-    marginBottom:50,
-  }, 
+    marginBottom: 50,
+  },
   pesq2: {
     height: 30,
     width: 120,

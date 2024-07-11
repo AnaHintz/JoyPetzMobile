@@ -167,6 +167,7 @@ export default function PublicarScreen({ navigation }) {
           keyboardType="phone-pad" // Define o teclado para entrada de telefone
           placeholder="(DDD) Número de telefone"
           activeUnderlineColor="hotpink"  
+          maxLength={11}
         />
         <Text style={styles.desc}>Descrição</Text>
         { }

@@ -210,7 +210,7 @@ export default function PerfilScreen() {
           </View>
         </View>
       </Modal>
-      <Text style={{ color: 'hotpink' }} ><FontAwesome5 name="user-circle" size={40} color="hotpink" /> Olá {emailUser}</Text>
+      <Text style={{ color: 'hotpink', fontSize: 40 }} ><FontAwesome5 name="user-circle" size={40} color="hotpink" /> Olá {emailUser}</Text>
       <Button
         mode="contained"
         buttonColor="hotpink"
