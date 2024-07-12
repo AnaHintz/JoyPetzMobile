@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, Platform, Image } from "react-native";
+import { View, StyleSheet, Text, Platform, Image, Alert } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import { FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -67,6 +67,8 @@ export default function PublicarScreen({ navigation }) {
 
     setUploading(true);
     console.log("Iniciando upload da imagem...");
+    
+    
 
     try {
       const response = await fetch(image);
@@ -92,7 +94,7 @@ export default function PublicarScreen({ navigation }) {
       setImage(null);
       navigation.navigate('Home')
     } catch (error) {
-      console.error("Erro ao fazer upload da imagem:", error);
+      Alert.alert("Preencha todos os campos!!!")
       setUploading(false);
     }
   };
@@ -106,6 +108,8 @@ export default function PublicarScreen({ navigation }) {
 
     return telefone;
   }
+
+
 
   return (
     <View style={publi.container}>
@@ -125,7 +129,7 @@ export default function PublicarScreen({ navigation }) {
             <Picker
               selectedValue={selectedAge}
               onValueChange={(itemValue) => setSelectedAge(itemValue)}
-              style={styles.picker}
+              style={publi.pesq2}
             >
               {generateAgeOptions().map((option) => (
                 <Picker.Item key={option.value} label={option.label} value={option.value} />
@@ -137,7 +141,7 @@ export default function PublicarScreen({ navigation }) {
             <Picker
               selectedValue={selectedSex}
               onValueChange={(itemValue) => setSelectedSex(itemValue)}
-              style={styles.picker}
+              style={publi.pesq2}
             >
               <Picker.Item label="Fêmea" value="Fêmea" />
               <Picker.Item label="Macho" value="Macho" />
@@ -149,7 +153,7 @@ export default function PublicarScreen({ navigation }) {
         <Picker
           selectedValue={especie}
           onValueChange={(itemValue) => setEspecie(itemValue)}
-          style={styles.picker}
+          style={publi.pesq2}
         >
           <Picker.Item label="Cão" value="Cão" />
           <Picker.Item label="Gato" value="Gato" />
@@ -211,6 +215,15 @@ const publi = StyleSheet.create({
     color: "white",
     fontSize: 13,
     marginRight: 8,
+  },
+  pesq2: {
+    height: 30,
+    width: 120,
+    marginLeft: 10,
+    border: "1px solid hotpink",
+    borderRadius: 4,
+    backgroundColor: "white",
+    color: "black",
   },
 });
 

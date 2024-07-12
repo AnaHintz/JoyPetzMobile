@@ -57,6 +57,7 @@ export default function HomeScreen() {
 
   return (
     <Surface style={styles.centeredView}>
+      
       <View style={styles.pesq}>
         <Text
           icon={() => <FontAwesome5 name="filter" size={20} color="hotpink" />}
@@ -112,7 +113,10 @@ export default function HomeScreen() {
       </Modal>
 
       {resultadosVazios && pesquisa !== null ? (
-        Alert.alert("Nenhuma publicação encontrada para esta espécie.")
+        <View>
+           <Text>Não há posts com essa espécie.</Text>
+        </View>
+       
       ) : (
         <FlatList
           data={pesquisa ? posts.filter(post => post.especie === pesquisa) : posts}
@@ -175,7 +179,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 30,
+    backgroundColor: "white",
   },
   modalView2: {
     margin: 20,
@@ -243,12 +247,17 @@ const styles = StyleSheet.create({
   pesq: {
     flex: 1,
     flexDirection: 'row',
-    marginTop: 10,
+    marginTop: 30,
     marginBottom: 50,
   },
   pesq2: {
     height: 30,
     width: 120,
     marginLeft: 10,
-  }
+    border: "1px solid hotpink",
+    borderRadius: 4,
+    backgroundColor: "white",
+    color: "black",
+  },
+  
 });

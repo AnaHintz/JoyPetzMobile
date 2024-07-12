@@ -119,8 +119,8 @@ const styles = StyleSheet.create({
     color: 'hotpink',
   },
   logo: {
-    width: 85,
-    height: 85,
+    width: 55,
+    height: 55,
     resizeMode: 'contain',
     marginRight: 10,
     marginTop: 10,
