@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { View, FlatList, Image, StyleSheet, Modal, Pressable, Alert } from "react-native";
 import { Button, Surface, Text } from "react-native-paper";
-import { collection, query, orderBy, onSnapshot, where } from "firebase/firestore";
+import { collection, query, orderBy, onSnapshot, where, limit } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import * as React from 'react';
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -76,7 +76,7 @@ export default function HomeScreen() {
           <Picker.Item label="Aquático" value="Aquático" />
         </Picker>
       </View>
-
+      <Text style={styles.label}>Principais Publicações</Text>
       <Modal
         animationType="slide"
         transparent={false}
@@ -86,7 +86,7 @@ export default function HomeScreen() {
           closeModal();
         }}
       >
-        <View style={styles.containerUp}>
+        
           <View style={styles.modalView2}>
             {selectedItem && (
               <View style={styles.post}>
@@ -109,7 +109,7 @@ export default function HomeScreen() {
               <Text style={styles.buttonTextModal}>Voltar</Text>
             </Pressable>
           </View>
-        </View>
+        
       </Modal>
 
       {resultadosVazios && pesquisa !== null ? (
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     marginLeft: 30,
   },
   image: {
-    width: "100%",
+    width: 360,
     height: 300,
     marginBottom: 10,
     borderRadius: 45,
@@ -179,7 +179,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: "white",
   },
   modalView2: {
     margin: 20,
@@ -255,9 +254,9 @@ const styles = StyleSheet.create({
     width: 120,
     marginLeft: 10,
     border: "1px solid hotpink",
+    backgroundColor: "#FFF",
     borderRadius: 4,
-    backgroundColor: "white",
-    color: "black",
+    color: "hotpink"
   },
   
 });

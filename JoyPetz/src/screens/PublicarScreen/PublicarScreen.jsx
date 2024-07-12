@@ -62,14 +62,21 @@ export default function PublicarScreen({ navigation }) {
     }
   };
 
+  const validateFields = () => {
+    if (!name || !raca || !contato || !desc || !image) {
+      Alert.alert("Erro", "Preencha todos os campos obrigatórios.");
+      return false;
+    }
+    return true;
+  };
+
   const uploadImage = async () => {
-    if (!image) return;
+    if (!validateFields()) {
+      return;
+    }
 
     setUploading(true);
     console.log("Iniciando upload da imagem...");
-    
-    
-
     try {
       const response = await fetch(image);
       const blob = await response.blob();
@@ -91,10 +98,20 @@ export default function PublicarScreen({ navigation }) {
       });
       console.log("Upload realizado com sucesso:", downloadURL);
       setUploading(false);
+
       setImage(null);
-      navigation.navigate('Home')
+      setName("");
+      setEspecie("");
+      setRaca("");
+      setContato("");
+      setDesc("");
+      setSelectedAge('2 meses');
+      setSelectedSex('Fêmea');
+
+      navigation.navigate('Home');
+
     } catch (error) {
-      Alert.alert("Preencha todos os campos!!!")
+      Alert.alert("Erro ao criar post:", error.message);
       setUploading(false);
     }
   };
@@ -155,6 +172,7 @@ export default function PublicarScreen({ navigation }) {
           onValueChange={(itemValue) => setEspecie(itemValue)}
           style={publi.pesq2}
         >
+          <Picker.Item label="" />
           <Picker.Item label="Cão" value="Cão" />
           <Picker.Item label="Gato" value="Gato" />
           <Picker.Item label="Pássaro" value="Pássaro" />
@@ -171,7 +189,7 @@ export default function PublicarScreen({ navigation }) {
           keyboardType="phone-pad" // Define o teclado para entrada de telefone
           placeholder="(DDD) Número de telefone"
           activeUnderlineColor="hotpink"  
-          maxLength={11}
+          maxLength={15}
         />
         <Text style={styles.desc}>Descrição</Text>
         { }

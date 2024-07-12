@@ -94,6 +94,7 @@ export default function RegisterScreen({ navigation }) {
             }
           />
         </View>
+        <View style={estilo.esp}></View>
         <Button style={estilo.margimtopo} mode="contained" onPress={handleRegister} buttonColor="hotpink">
           Fazer Cadastro
         </Button>
@@ -162,4 +163,7 @@ const estilo = StyleSheet.create({
     color: "red",
     marginBottom: 10,
   },
+  esp: {
+    marginBottom: 100,
+}
 });

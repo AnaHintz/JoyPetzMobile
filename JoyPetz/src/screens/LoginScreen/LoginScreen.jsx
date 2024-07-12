@@ -74,13 +74,15 @@ export default function LoginScreen({ navigation }) {
                         }
                     />
                 </View>
-                <Button style={estilo.margimtopo} mode="contained" onPress={handleLogin} buttonColor="hotpink">
+                <View style={estilo.esp}></View>
+                    <Button style={estilo.margimtopo} mode="contained" onPress={handleLogin} buttonColor="hotpink">
                     Entrar
                 </Button>
                 <Button style={estilo.margimtopo} mode="contained" onPress={() => navigation.navigate("Register")} buttonColor="hotpink">
                     Registrar
                 </Button>
-            </View>
+                </View>
+            
         </View>
     );
 }
@@ -143,4 +145,7 @@ const estilo = StyleSheet.create({
         color: "red",
         marginBottom: 10,
     },
+    esp: {
+        marginBottom: 100,
+    }
 });
