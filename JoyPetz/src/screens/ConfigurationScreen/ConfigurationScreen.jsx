@@ -210,17 +210,20 @@ export default function PerfilScreen() {
           </View>
         </View>
       </Modal>
-      <Text style={{ color: 'hotpink', fontSize: 40 }} ><FontAwesome5 name="user-circle" size={40} color="hotpink" /> Olá {emailUser}</Text>
+      <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+        <FontAwesome5 name="user-circle" size={65} color="hotpink" />
+        <Text style={{ color: 'hotpink', fontSize: 25 }} > Olá {emailUser}</Text>
+      </View>
       <Button
         mode="contained"
         buttonColor="hotpink"
+        style={{ marginBottom: 25 }}
         onPress={toggleTheme}
         icon={() => <FontAwesome5 name="moon" size={20} color="white" />}
       >
         Alternar tema
       </Button>
-
-      <Text>Suas Publicações</Text>
+      <Text style={{ color: 'hotpink', fontSize: 22, marginBottom: 25, marginTop: 25 }} >Suas Publicações</Text>
       <FlatList
         data={posts}
         keyExtractor={(item) => item.id}
@@ -348,5 +351,3 @@ const styles = StyleSheet.create({
   },
 
 });
-
-
