@@ -4,7 +4,7 @@ import { Button, Surface, Text } from "react-native-paper";
 import { collection, query, orderBy, onSnapshot, deleteDoc, updateDoc, doc } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import * as React from 'react';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 import { useTheme } from '../../contexts/ThemeContext';
 
 export default function PerfilScreen() {
@@ -211,19 +211,21 @@ export default function PerfilScreen() {
         </View>
       </Modal>
       <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
-        <FontAwesome5 name="user-circle" size={65} color="hotpink" />
-        <Text style={{ color: 'hotpink', fontSize: 25 }} > Olá {emailUser}</Text>
+        <FontAwesome5 name="user-circle" size={44} color="hotpink" />
+        <Text style={{ color: 'hotpink', fontSize: 22 }} > Olá {emailUser}</Text>
       </View>
       <Button
         mode="contained"
         buttonColor="hotpink"
-        style={{ marginBottom: 25 }}
+        style={{ marginBottom: 25, marginLeft: 140 }}
         onPress={toggleTheme}
         icon={() => <FontAwesome5 name="moon" size={20} color="white" />}
+
       >
-        Alternar tema
+        Alterar tema
       </Button>
-      <Text style={{ color: 'hotpink', fontSize: 22, marginBottom: 25, marginTop: 25 }} >Suas Publicações</Text>
+      <Text variant="titleLarge" style={styles.title}>Suas Publicações</Text>     
+       <View style={styles.separator} />
       <FlatList
         data={posts}
         keyExtractor={(item) => item.id}
@@ -349,5 +351,16 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
   },
-
+  separator: {
+    width: "85%",
+    height: 2,
+    backgroundColor: "hotpink",
+    marginBottom: 5,
+},
+title: {
+  marginLeft: 100,
+  fontSize: 22,
+  fontWeight: "bold",
+  color: "hotpink",
+},
 });

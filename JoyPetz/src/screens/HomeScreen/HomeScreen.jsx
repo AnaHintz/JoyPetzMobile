@@ -57,7 +57,7 @@ export default function HomeScreen() {
 
   return (
     <Surface style={styles.centeredView}>
-      
+
       <View style={styles.pesq}>
         <Text
           icon={() => <FontAwesome5 name="filter" size={20} color="hotpink" />}
@@ -86,37 +86,37 @@ export default function HomeScreen() {
           closeModal();
         }}
       >
-        
-          <View style={styles.modalView2}>
-            {selectedItem && (
-              <View style={styles.post}>
-                <Image source={{ uri: selectedItem.imageUrl }} style={styles.image} />
-                <View style={styles.mdFtEspc}>
-                  <Text style={[styles.modalText, styles.modalFont]}>{selectedItem.name}</Text>
-                  <Text style={styles.label}>Sexo: <Text style={styles.info}>{selectedItem.selectedSex}</Text></Text>
-                  <Text style={styles.label}>Idade: <Text style={styles.info}>{selectedItem.selectedAge}</Text></Text>
-                  <Text style={styles.label}>Espécie: <Text style={styles.info}>{selectedItem.especie}</Text></Text>
-                  <Text style={styles.label}>Raça: <Text style={styles.info}>{selectedItem.raca}</Text></Text>
-                  <Text style={styles.label}>Contato: <Text style={styles.info}>{selectedItem.contato}</Text></Text>
-                  <Text style={styles.label}>Descrição: <Text style={styles.info}>{selectedItem.desc}</Text></Text>
-                </View>
+
+        <View style={styles.modalView2}>
+          {selectedItem && (
+            <View style={styles.post}>
+              <Image source={{ uri: selectedItem.imageUrl }} style={styles.image} />
+              <View style={styles.mdFtEspc}>
+                <Text style={[styles.modalText, styles.modalFont]}>{selectedItem.name}</Text>
+                <Text style={styles.label}>Sexo: <Text style={styles.info}>{selectedItem.selectedSex}</Text></Text>
+                <Text style={styles.label}>Idade: <Text style={styles.info}>{selectedItem.selectedAge}</Text></Text>
+                <Text style={styles.label}>Espécie: <Text style={styles.info}>{selectedItem.especie}</Text></Text>
+                <Text style={styles.label}>Raça: <Text style={styles.info}>{selectedItem.raca}</Text></Text>
+                <Text style={styles.label}>Contato: <Text style={styles.info}>{selectedItem.contato}</Text></Text>
+                <Text style={styles.label}>Descrição: <Text style={styles.info}>{selectedItem.desc}</Text></Text>
               </View>
-            )}
-            <Pressable
-              onPress={closeModal}
-              style={[styles.button, styles.buttonOpen]}
-            >
-              <Text style={styles.buttonTextModal}>Voltar</Text>
-            </Pressable>
-          </View>
-        
+            </View>
+          )}
+          <Pressable
+            onPress={closeModal}
+            style={[styles.button, styles.buttonOpen]}
+          >
+            <Text style={styles.buttonTextModal}>Voltar</Text>
+          </Pressable>
+        </View>
+
       </Modal>
 
       {resultadosVazios && pesquisa !== null ? (
         <View>
-           <Text>Não há posts com essa espécie.</Text>
+          <Text>Não há posts com essa espécie.</Text>
         </View>
-       
+
       ) : (
         <FlatList
           data={pesquisa ? posts.filter(post => post.especie === pesquisa) : posts}
@@ -258,5 +258,5 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     color: "hotpink"
   },
-  
+
 });
