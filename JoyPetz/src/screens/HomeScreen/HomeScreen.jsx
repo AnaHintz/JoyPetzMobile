@@ -57,7 +57,7 @@ export default function HomeScreen() {
 
   return (
     <Surface style={styles.centeredView}>
-      
+
       <View style={styles.pesq}>
         <Text
           icon={() => <FontAwesome5 name="filter" size={20} color="hotpink" />}
@@ -76,17 +76,20 @@ export default function HomeScreen() {
           <Picker.Item label="Aquático" value="Aquático" />
         </Picker>
       </View>
-      <Text style={styles.label}>Principais Publicações</Text>
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          closeModal();
-        }}
-      >
-        
+      
+        <Text style={styles.label2}>Principais Publicações</Text>
+        <View style={styles.separator} />
+      
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            closeModal();
+          }}
+        >
+
           <View style={styles.modalView2}>
             {selectedItem && (
               <View style={styles.post}>
@@ -109,14 +112,15 @@ export default function HomeScreen() {
               <Text style={styles.buttonTextModal}>Voltar</Text>
             </Pressable>
           </View>
-        
-      </Modal>
+
+        </Modal>
+
 
       {resultadosVazios && pesquisa !== null ? (
         <View>
-           <Text>Não há posts com essa espécie.</Text>
+          <Text>Não há posts com essa espécie.</Text>
         </View>
-       
+
       ) : (
         <FlatList
           data={pesquisa ? posts.filter(post => post.especie === pesquisa) : posts}
@@ -238,6 +242,13 @@ const styles = StyleSheet.create({
     color: 'hotpink', // Cor dos tópicos em rosa
     fontWeight: 'bold', // Negrito para os tópicos em rosa
     fontSize: 20, // Tamanho da fonte dos tópicos
+
+  },
+  label2: {
+    color: 'hotpink', // Cor dos tópicos em rosa
+    fontWeight: 'bold', // Negrito para os tópicos em rosa
+    fontSize: 20, // Tamanho da fonte dos tópicos
+    marginLeft: "30%"
   },
   info: {
     color: 'black', // Mantém a cor das informações ao lado dos tópicos
@@ -258,5 +269,10 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     color: "hotpink"
   },
-  
+  separator: {
+    width: "90%",
+    height: 2,
+    backgroundColor: "hotpink",
+    marginBottom: 20,
+  },
 });
