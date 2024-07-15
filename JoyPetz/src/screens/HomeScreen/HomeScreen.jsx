@@ -76,41 +76,44 @@ export default function HomeScreen() {
           <Picker.Item label="Aquático" value="Aquático" />
         </Picker>
       </View>
-      <Text style={styles.label}>Principais Publicações</Text>
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          closeModal();
-        }}
-      >
+      
+        <Text style={styles.label2}>Principais Publicações</Text>
+        <View style={styles.separator} />
+      
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            closeModal();
+          }}
+        >
 
-        <View style={styles.modalView2}>
-          {selectedItem && (
-            <View style={styles.post}>
-              <Image source={{ uri: selectedItem.imageUrl }} style={styles.image} />
-              <View style={styles.mdFtEspc}>
-                <Text style={[styles.modalText, styles.modalFont]}>{selectedItem.name}</Text>
-                <Text style={styles.label}>Sexo: <Text style={styles.info}>{selectedItem.selectedSex}</Text></Text>
-                <Text style={styles.label}>Idade: <Text style={styles.info}>{selectedItem.selectedAge}</Text></Text>
-                <Text style={styles.label}>Espécie: <Text style={styles.info}>{selectedItem.especie}</Text></Text>
-                <Text style={styles.label}>Raça: <Text style={styles.info}>{selectedItem.raca}</Text></Text>
-                <Text style={styles.label}>Contato: <Text style={styles.info}>{selectedItem.contato}</Text></Text>
-                <Text style={styles.label}>Descrição: <Text style={styles.info}>{selectedItem.desc}</Text></Text>
+          <View style={styles.modalView2}>
+            {selectedItem && (
+              <View style={styles.post}>
+                <Image source={{ uri: selectedItem.imageUrl }} style={styles.image} />
+                <View style={styles.mdFtEspc}>
+                  <Text style={[styles.modalText, styles.modalFont]}>{selectedItem.name}</Text>
+                  <Text style={styles.label}>Sexo: <Text style={styles.info}>{selectedItem.selectedSex}</Text></Text>
+                  <Text style={styles.label}>Idade: <Text style={styles.info}>{selectedItem.selectedAge}</Text></Text>
+                  <Text style={styles.label}>Espécie: <Text style={styles.info}>{selectedItem.especie}</Text></Text>
+                  <Text style={styles.label}>Raça: <Text style={styles.info}>{selectedItem.raca}</Text></Text>
+                  <Text style={styles.label}>Contato: <Text style={styles.info}>{selectedItem.contato}</Text></Text>
+                  <Text style={styles.label}>Descrição: <Text style={styles.info}>{selectedItem.desc}</Text></Text>
+                </View>
               </View>
-            </View>
-          )}
-          <Pressable
-            onPress={closeModal}
-            style={[styles.button, styles.buttonOpen]}
-          >
-            <Text style={styles.buttonTextModal}>Voltar</Text>
-          </Pressable>
-        </View>
+            )}
+            <Pressable
+              onPress={closeModal}
+              style={[styles.button, styles.buttonOpen]}
+            >
+              <Text style={styles.buttonTextModal}>Voltar</Text>
+            </Pressable>
+          </View>
 
-      </Modal>
+        </Modal>
 
       {resultadosVazios && pesquisa !== null ? (
         <View>
@@ -238,6 +241,13 @@ const styles = StyleSheet.create({
     color: 'hotpink', // Cor dos tópicos em rosa
     fontWeight: 'bold', // Negrito para os tópicos em rosa
     fontSize: 20, // Tamanho da fonte dos tópicos
+
+  },
+  label2: {
+    color: 'hotpink', // Cor dos tópicos em rosa
+    fontWeight: 'bold', // Negrito para os tópicos em rosa
+    fontSize: 20, // Tamanho da fonte dos tópicos
+    marginLeft: "30%"
   },
   info: {
     color: 'black', // Mantém a cor das informações ao lado dos tópicos
@@ -257,6 +267,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     borderRadius: 4,
     color: "hotpink"
+  },
+  separator: {
+    width: "90%",
+    height: 2,
+    backgroundColor: "hotpink",
+    marginBottom: 20,
   },
 
 });
