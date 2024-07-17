@@ -1,41 +1,71 @@
 import React, { useState } from "react";
-import { View, Image, StyleSheet } from "react-native";
-import { Button, Icon, Surface, Text, TextInput } from "react-native-paper";
-import { styles } from "../../config/Style";
+import { View, Image, StyleSheet, Alert } from "react-native";
+import { Button, Surface, Text, TextInput } from "react-native-paper";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [repetirSenha, setRepetirSenha] = useState("");
-  const [hidePassword, setHidePassword] = useState("");
+  const [hidePassword, setHidePassword] = useState(true);
   const [error, setError] = useState("");
+  const [passwordMessage, setPasswordMessage] = useState("");
+
+  useFocusEffect(
+    React.useCallback(() => {
+        return () => {
+            setEmail("");
+            setSenha("");
+            setError("");
+        };
+    }, [])
+);
 
   const handleRegister = () => {
-    // Verificar se os campos de email, senha e repetir senha estão preenchidos
+    setError("");
+
     if (!email.trim() || !senha.trim() || !repetirSenha.trim()) {
       setError("Por favor, preencha todos os campos.");
       return;
     }
 
-    // Verificar se as senhas são iguais
-    else if (senha !== repetirSenha) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      setError("Por favor, insira um endereço de email válido.");
+      return;
+    }
+
+    if (senha !== repetirSenha) {
       setError("As senhas não estão iguais. Por favor, tente novamente.");
       return;
     }
 
-    try {
-      const userRef = createUserWithEmailAndPassword(auth, email, senha);
-      if (userRef) {
-        console.log("Usuário registrado com sucesso!");
-        navigation.navigate("Login");
-      }
-
-    } catch (e) {
-      console.error(e);
+    if (senha.length < 6) {
+      setError("A senha deve ter pelo menos 6 caracteres.");
+      return;
     }
 
+    createUserWithEmailAndPassword(auth, email, senha)
+      .then(() => {
+        Alert.alert("Sucesso", "Conta criada com sucesso!", [
+          { text: "OK", onPress: () => navigation.navigate("Login") }
+        ]);
+      })
+      .catch((error) => {
+        setError("Erro ao registrar: " + error.message);
+        Alert.alert("Erro", error.message);
+      });
+  };
+
+  const handlePasswordChange = (text) => {
+    setSenha(text);
+    if (text.length < 6) {
+      setPasswordMessage("A senha deve ter pelo menos 6 caracteres.");
+    } else {
+      setPasswordMessage("");
+    }
   };
 
   return (
@@ -43,29 +73,30 @@ export default function RegisterScreen({ navigation }) {
       <View style={estilo.header}>
         <Image
           source={require("../../../assets/joypetz.png")}
-          style={estilo.logo} />
-        <Text variant="titleLarge" style={StyleSheet.compose(estilo.title)}>Registrar</Text>
+          style={estilo.logo}
+        />
+        <Text variant="titleLarge" style={estilo.title}>Registrar</Text>
       </View>
       <View style={estilo.separator} />
       <View style={estilo.formContainer}>
-        {error ? <Text style={styles.errorText}>{error}</Text> : null}
+        {error ? <Text style={estilo.errorText}>{error}</Text> : null}
         <View style={estilo.input2}>
-          <Text style={{ color: 'hotpink' }}>Email</Text>
+          <Text style={estilo.label}>Email</Text>
           <TextInput
             activeUnderlineColor="hotpink"
             placeholder={"Digite seu e-mail"}
             value={email}
             onChangeText={setEmail}
-            style={styles.input}
+            style={estilo.input}
           />
         </View>
         <View style={estilo.input2}>
-          <Text style={{ color: 'hotpink' }}>Senha</Text>
+          <Text style={estilo.label}>Senha</Text>
           <TextInput
             activeUnderlineColor="hotpink"
             placeholder={"Digite sua Senha"}
             value={senha}
-            onChangeText={setSenha}
+            onChangeText={handlePasswordChange}
             secureTextEntry={hidePassword}
             right={
               <TextInput.Icon
@@ -73,18 +104,17 @@ export default function RegisterScreen({ navigation }) {
                 onPress={() => setHidePassword(!hidePassword)}
               />
             }
-            style={styles.input}
+            style={estilo.input}
           />
+          {passwordMessage ? <Text style={estilo.errorText}>{passwordMessage}</Text> : null}
         </View>
         <View style={estilo.input2}>
-          <Text style={{ color: 'hotpink' }}>Confimação da Senha</Text>
+          <Text style={estilo.label}>Confirmação da Senha</Text>
           <TextInput
             activeUnderlineColor="hotpink"
-
             placeholder={"Repita sua senha"}
             value={repetirSenha}
             onChangeText={setRepetirSenha}
-            style={styles.esp}
             secureTextEntry={hidePassword}
             right={
               <TextInput.Icon
@@ -92,9 +122,9 @@ export default function RegisterScreen({ navigation }) {
                 onPress={() => setHidePassword(!hidePassword)}
               />
             }
+            style={estilo.input}
           />
         </View>
-        <View style={estilo.esp}></View>
         <Button style={estilo.margimtopo} mode="contained" onPress={handleRegister} buttonColor="hotpink">
           Fazer Cadastro
         </Button>
@@ -112,8 +142,7 @@ const estilo = StyleSheet.create({
     backgroundColor: "#FFFF",
     alignItems: "center",
     justifyContent: 'flex-start',
-    paddingRight: 20,
-    paddingLeft: 20,
+    padding: 20,
   },
   header: {
     flexDirection: "row",
@@ -142,9 +171,6 @@ const estilo = StyleSheet.create({
     width: "100%",
     marginTop: 20,
   },
-  lefttext: {
-    alignItems: "flex-start",
-  },
   input: {
     width: "100%",
     marginBottom: 10,
@@ -163,7 +189,8 @@ const estilo = StyleSheet.create({
     color: "red",
     marginBottom: 10,
   },
-  esp: {
-    marginBottom: 100,
-}
+  label: {
+    color: 'hotpink',
+    marginBottom: 5,
+  }
 });
