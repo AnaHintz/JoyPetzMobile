@@ -11,7 +11,7 @@ export default function HomeScreen() {
   const [posts, setPosts] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [pesquisa, setPesquisa] = useState(null);
+  const [pesquisa, setPesquisa] = useState("");
   const [resultadosVazios, setResultadosVazios] = useState(false);
 
   useEffect(() => {
@@ -76,9 +76,6 @@ export default function HomeScreen() {
           <Picker.Item label="Aquático" value="Aquático" />
         </Picker>
       </View>
-      
-        <Text style={styles.label2}>Principais Publicações</Text>
-        <View style={styles.separator} />
       
         <Modal
           animationType="slide"

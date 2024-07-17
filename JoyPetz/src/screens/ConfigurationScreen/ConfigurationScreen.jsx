@@ -95,7 +95,7 @@ export default function PerfilScreen() {
         onRequestClose={closeModal}
       >
         <View style={styles.container}>
-          <View style={styles.modalView2}>
+          <View style={{ ...styles.modalView2, alignSelf: "stretch" }}>
             {selectedItem && (
               <View style={styles.post}>
                 {editMode ? (
@@ -224,8 +224,8 @@ export default function PerfilScreen() {
       >
         Alterar tema
       </Button>
-      <Text variant="titleLarge" style={styles.title}>Suas Publicações</Text>     
-       <View style={styles.separator} />
+      <Text variant="titleLarge" style={styles.title}>Suas Publicações</Text>
+      <View style={styles.separator} />
       <FlatList
         data={posts}
         keyExtractor={(item) => item.id}
@@ -329,6 +329,9 @@ const styles = StyleSheet.create({
   buttonClose: {
     backgroundColor: '#2196F3',
   },
+  buttonDelete: {
+    backgroundColor: 'red',
+  },
   buttonEdit: {
     backgroundColor: '#FFB74D',
   },
@@ -356,11 +359,11 @@ const styles = StyleSheet.create({
     height: 2,
     backgroundColor: "hotpink",
     marginBottom: 5,
-},
-title: {
-  marginLeft: 100,
-  fontSize: 22,
-  fontWeight: "bold",
-  color: "hotpink",
-},
+  },
+  title: {
+    marginLeft: 100,
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "hotpink",
+  },
 });
