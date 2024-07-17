@@ -76,41 +76,41 @@ export default function HomeScreen() {
           <Picker.Item label="Aquático" value="Aquático" />
         </Picker>
       </View>
-      
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-            closeModal();
-          }}
-        >
 
-          <View style={styles.modalView2}>
-            {selectedItem && (
-              <View style={styles.post}>
-                <Image source={{ uri: selectedItem.imageUrl }} style={styles.image} />
-                <View style={styles.mdFtEspc}>
-                  <Text style={[styles.modalText, styles.modalFont]}>{selectedItem.name}</Text>
-                  <Text style={styles.label}>Sexo: <Text style={styles.info}>{selectedItem.selectedSex}</Text></Text>
-                  <Text style={styles.label}>Idade: <Text style={styles.info}>{selectedItem.selectedAge}</Text></Text>
-                  <Text style={styles.label}>Espécie: <Text style={styles.info}>{selectedItem.especie}</Text></Text>
-                  <Text style={styles.label}>Raça: <Text style={styles.info}>{selectedItem.raca}</Text></Text>
-                  <Text style={styles.label}>Contato: <Text style={styles.info}>{selectedItem.contato}</Text></Text>
-                  <Text style={styles.label}>Descrição: <Text style={styles.info}>{selectedItem.desc}</Text></Text>
-                </View>
+      <Modal
+        animationType="slide"
+        transparent={false}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          closeModal();
+        }}
+      >
+
+        <View style={styles.modalView2}>
+          {selectedItem && (
+            <View style={styles.post}>
+              <Image source={{ uri: selectedItem.imageUrl }} style={styles.image} />
+              <Text style={[styles.modalText, styles.modalFont]}>{selectedItem.name}</Text>
+              <View style={styles.mdFtEspc}>
+                <Text style={styles.label}>Sexo: <Text style={styles.info}>{selectedItem.selectedSex}</Text></Text>
+                <Text style={styles.label}>Idade: <Text style={styles.info}>{selectedItem.selectedAge}</Text></Text>
+                <Text style={styles.label}>Espécie: <Text style={styles.info}>{selectedItem.especie}</Text></Text>
+                <Text style={styles.label}>Raça: <Text style={styles.info}>{selectedItem.raca}</Text></Text>
+                <Text style={styles.label}>Contato: <Text style={styles.info}>{selectedItem.contato}</Text></Text>
+                <Text style={styles.label}>Descrição: <Text style={styles.info}>{selectedItem.desc}</Text></Text>
               </View>
-            )}
-            <Pressable
-              onPress={closeModal}
-              style={[styles.button, styles.buttonOpen]}
-            >
-              <Text style={styles.buttonTextModal}>Voltar</Text>
-            </Pressable>
-          </View>
+            </View>
+          )}
+          <Pressable
+            onPress={closeModal}
+            style={[styles.button, styles.buttonOpen]}
+          >
+            <Text style={styles.buttonTextModal}>Voltar</Text>
+          </Pressable>
+        </View>
 
-        </Modal>
+      </Modal>
 
       {resultadosVazios && pesquisa !== null ? (
         <View>
@@ -158,6 +158,7 @@ const styles = StyleSheet.create({
     borderRadius: 45,
   },
   modalFont: {
+    color: 'hotpink',
     paddingTop: 5,
     fontSize: 20,
   },
@@ -235,10 +236,9 @@ const styles = StyleSheet.create({
     textAlign: 'center', // Centraliza o texto
   },
   label: {
-    color: 'hotpink', // Cor dos tópicos em rosa
-    fontWeight: 'bold', // Negrito para os tópicos em rosa
-    fontSize: 20, // Tamanho da fonte dos tópicos
-
+    color: 'hotpink',
+    fontWeight: 'bold',
+    fontSize: 20,
   },
   label2: {
     color: 'hotpink', // Cor dos tópicos em rosa
@@ -247,8 +247,8 @@ const styles = StyleSheet.create({
     marginLeft: "30%"
   },
   info: {
-    color: 'black', // Mantém a cor das informações ao lado dos tópicos
-    fontSize: 20, // Tamanho da fonte das informações
+    color: 'black',
+    fontSize: 20,
   },
   pesq: {
     flex: 1,

@@ -94,8 +94,8 @@ export default function PerfilScreen() {
         visible={modalVisible}
         onRequestClose={closeModal}
       >
-        <View style={styles.container}>
-          <View style={{ ...styles.modalView2, alignSelf: "stretch" }}>
+        <View style={styles.modalView2}>
+          <View style={{ alignSelf: "stretch" }}>
             {selectedItem && (
               <View style={styles.post}>
                 {editMode ? (
@@ -142,73 +142,41 @@ export default function PerfilScreen() {
                     />
                   </>
                 ) : (
-                  <>
-                    <Image source={{ uri: selectedItem.imageUrl }} style={styles.image} />
-                    <Text style={styles.modalText}>{selectedItem.name}</Text>
-                    <Text>sexo: {selectedItem.selectedSex}</Text>
-                    <Text>idade: {selectedItem.selectedAge}</Text>
-                    <Text>espécie: {selectedItem.especie}</Text>
-                    <Text>raça: {selectedItem.raca}</Text>
-                    <Text>contato: {selectedItem.contato}</Text>
-                    <Text>descrição: {selectedItem.desc}</Text>
-                    <Text>email: {selectedItem.email}</Text>
-                  </>
+                  <View>
+                    <View style={styles.imageContainer}>
+                      <Image source={{ uri: selectedItem.imageUrl }} style={styles.image} />
+                    </View>
+                    <Text style={[styles.modalText, styles.modalFont]}>{selectedItem.name}</Text>
+                    <View style={styles.mdFtEspc}>
+                      <Text style={styles.label}>Sexo:  <Text style={styles.info}>{selectedItem.selectedSex}</Text></Text>
+                      <Text style={styles.label}>Idade:  <Text style={styles.info}>{selectedItem.selectedAge}</Text></Text>
+                      <Text style={styles.label}>Espécie:  <Text style={styles.info}>{selectedItem.especie}</Text></Text>
+                      <Text style={styles.label}>Raça:  <Text style={styles.info}>{selectedItem.raca}</Text></Text>
+                      <Text style={styles.label}>Contato:  <Text style={styles.info}>{selectedItem.contato}</Text></Text>
+                      <Text style={styles.label}>Descrição:  <Text style={styles.info}>{selectedItem.desc}</Text></Text>
+                      <Text style={styles.label}>Email:  <Text style={styles.info}>{selectedItem.email}</Text></Text>
+                    </View>
+                  </View>
                 )}
               </View>
             )}
-            <Pressable
-              onPress={closeModal}
-              style={[styles.button, styles.buttonClose]}
-            >
+            <Pressable onPress={closeModal} style={[styles.button, styles.buttonClose]}>
               <Text style={styles.textStyle}>Sair</Text>
             </Pressable>
             {editMode ? (
-              <Pressable
-                onPress={handleSave}
-                style={[styles.button, styles.buttonSave]}
-              >
+              <Pressable onPress={handleSave} style={[styles.button, styles.buttonSave]}>
                 <Text style={styles.textStyle}>Salvar</Text>
               </Pressable>
             ) : (
-              <Pressable
-                onPress={handleEdit}
-                style={[styles.button, styles.buttonEdit]}
-              >
+              <Pressable onPress={handleEdit} style={[styles.button, styles.buttonEdit]}>
                 <Text style={styles.textStyle}>Editar</Text>
               </Pressable>
             )}
           </View>
         </View>
-      </Modal>
 
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={deleteConfirmationVisible}
-        onRequestClose={closeDeleteConfirmationModal}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Tem certeza que deseja excluir esta publicação?</Text>
-            <View style={styles.modalButtons}>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={closeDeleteConfirmationModal}
-              >
-                <Text style={styles.textStyle}>Cancelar</Text>
-              </Pressable>
-              <Pressable
-                style={[styles.button, styles.buttonDelete]}
-                onPress={() => {
-                  deletePost(itemToDelete.id);
-                  closeDeleteConfirmationModal();
-                }}
-              >
-                <Text style={styles.textStyle}>Confirmar</Text>
-              </Pressable>
-            </View>
-          </View>
-        </View>
+
+
       </Modal>
       <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
         <FontAwesome5 name="user-circle" size={44} color="hotpink" />
@@ -271,15 +239,38 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     borderRadius: 45,
   },
+  label: {
+    color: 'hotpink',
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  info: {
+    color: 'black',
+    fontSize: 20,
+  },
+  mdFtEspc: {
+    marginLeft: 30,
+  },
+  modalFont: {
+    color: 'hotpink',
+    paddingTop: 5,
+    fontSize: 20,
+  },
   infoContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 10,
   },
+  imageContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+  },
   image: {
-    width: "100%",
+    minWidth: 260,
     height: 300,
+    alignSelf: "stretch",
     marginBottom: 10,
     borderRadius: 45,
   },
@@ -310,12 +301,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'hotpink',
   },
   buttonText: {
-    fontSize: 20, // Aumenta levemente o tamanho da fonte
-    color: 'white', // Altera a cor da fonte para branco
+    fontSize: 20,
+    color: 'white',
   },
   buttonTextModal: {
     color: 'white',
-    textAlign: 'center', // Centraliza o texto
+    textAlign: 'center',
   },
   name: {
     flex: 1,
@@ -358,10 +349,11 @@ const styles = StyleSheet.create({
     width: "85%",
     height: 2,
     backgroundColor: "hotpink",
-    marginBottom: 5,
+    marginBottom: 25,
+    marginTop: 10,
   },
   title: {
-    marginLeft: 100,
+    justifyContent: 'center',
     fontSize: 22,
     fontWeight: "bold",
     color: "hotpink",
