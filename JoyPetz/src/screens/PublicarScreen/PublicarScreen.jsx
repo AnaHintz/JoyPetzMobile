@@ -2,12 +2,13 @@ import { View, StyleSheet, Text, Platform, Image, Alert } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import { FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from 'expo-image-picker';
 import { storage, db } from "../../config/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { collection, addDoc } from "firebase/firestore";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function PublicarScreen({ navigation }) {
   const [image, setImage] = useState();
@@ -19,6 +20,19 @@ export default function PublicarScreen({ navigation }) {
   const [selectedAge, setSelectedAge] = useState('2 meses');
   const [selectedSex, setSelectedSex] = useState('Fêmea');
   const [uploading, setUploading] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      setImage(null);
+      setName("");
+      setEspecie("");
+      setRaca("");
+      setContato("");
+      setDesc("");
+      setSelectedAge('2 meses');
+      setSelectedSex('Fêmea');
+    }, [])
+  );
 
   const generateAgeOptions = () => {
     const options = [];

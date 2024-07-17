@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, Alert } from "react-native";
 import { Button, Text, TextInput, } from "react-native-paper";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function LoginScreen({ navigation }) {
     const [email, setEmail] = useState("");
@@ -25,7 +26,7 @@ export default function LoginScreen({ navigation }) {
         try {
             const userRef = await signInWithEmailAndPassword(auth, email, senha);
             if (userRef) {
-                console.log("Usuário logado com sucesso!");
+                Alert.alert("Usuário logado com sucesso!");
                 navigation.navigate("Home");
             }
         } catch (e) {
@@ -34,8 +35,9 @@ export default function LoginScreen({ navigation }) {
         }
 
         setLoading(false);
-    };
+    }; 
     module.exports = email;
+   
 
     return (
         <View style={estilo.container}>

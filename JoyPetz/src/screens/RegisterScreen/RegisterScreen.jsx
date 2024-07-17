@@ -3,6 +3,7 @@ import { View, Image, StyleSheet, Alert } from "react-native";
 import { Button, Surface, Text, TextInput } from "react-native-paper";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -11,6 +12,16 @@ export default function RegisterScreen({ navigation }) {
   const [hidePassword, setHidePassword] = useState(true);
   const [error, setError] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
+
+  useFocusEffect(
+    React.useCallback(() => {
+        return () => {
+            setEmail("");
+            setSenha("");
+            setError("");
+        };
+    }, [])
+);
 
   const handleRegister = () => {
     setError("");
