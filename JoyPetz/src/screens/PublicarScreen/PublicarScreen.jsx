@@ -124,22 +124,25 @@ export default function PublicarScreen({ navigation }) {
     telefone = telefone.replace(/^(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
 
     return telefone;
-  }
-
-
+  };
 
   return (
     <View style={publi.container}>
       <View style={styles.container}>
         <TouchableOpacity style={publi.toque} onPress={pickImage}>
           <FontAwesome name="camera" size={21} color="white" style={publi.icon} />
-          <Text style={publi.text}  >Adicionar foto</Text>
+          <Text style={publi.text}>Adicionar foto</Text>
         </TouchableOpacity>
+
+        {image && (
+          <View style={publi.imageContainer}>
+            <Image source={{ uri: image }} style={publi.image} />
+          </View>
+        )}
 
         <Text style={styles.label}>Nome</Text>
         <TextInput activeUnderlineColor="hotpink" placeholder="Digite o nome..." value={name} onChangeText={setName} />
 
-        { }
         <View style={styles.inlineContainer}>
           <View style={styles.inlineItem}>
             <Text style={styles.label}>Idade</Text>
@@ -180,7 +183,7 @@ export default function PublicarScreen({ navigation }) {
           <Picker.Item label="Aquático" value="Aquático" />
         </Picker>
 
-        <Text activeUnderlineColor="hotpink" style={styles.label}>Raça</Text>
+        <Text style={styles.label}>Raça</Text>
         <TextInput activeUnderlineColor="hotpink" placeholder="Digite a raça..." value={raca} onChangeText={setRaca} />
         <Text style={styles.label}>Contato</Text>
         <TextInput
@@ -192,7 +195,6 @@ export default function PublicarScreen({ navigation }) {
           maxLength={15}
         />
         <Text style={styles.desc}>Descrição</Text>
-        { }
         <TextInput
           activeUnderlineColor="hotpink"
           placeholder="Adicione uma descrição..."
@@ -201,7 +203,7 @@ export default function PublicarScreen({ navigation }) {
           onChangeText={setDesc}
           style={styles.descInput}
         />
-        <Button style={styles.publicar} mode="contained" onPress={uploadImage} disabled={uploading} buttonColor="hotpink" >Publicar</Button>
+        <Button style={styles.publicar} mode="contained" onPress={uploadImage} disabled={uploading} buttonColor="hotpink">Publicar</Button>
       </View>
     </View>
   );
@@ -212,7 +214,6 @@ const publi = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-
   },
   toque: {
     flexDirection: 'row',
@@ -242,6 +243,16 @@ const publi = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: "white",
     color: "black",
+  },
+  imageContainer: {
+    marginBottom: 20,
+    alignItems: 'baseline',
+  },
+  image: {
+    width: 200,
+    height: 150,
+    resizeMode: 'cover',
+    borderRadius: 10,
   },
 });
 
