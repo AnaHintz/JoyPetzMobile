@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { View, Image, StyleSheet, Alert } from "react-native";
-import { Button, Surface, Text, TextInput } from "react-native-paper";
+import { View, Image, StyleSheet } from "react-native";
+import { Button, Surface, Text, TextInput, Dialog, Portal, Paragraph } from "react-native-paper";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
 import { useFocusEffect } from "@react-navigation/native";
@@ -12,6 +12,7 @@ export default function RegisterScreen({ navigation }) {
   const [hidePassword, setHidePassword] = useState(true);
   const [error, setError] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
+  const [visible, setVisible] = useState(false);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -21,7 +22,7 @@ export default function RegisterScreen({ navigation }) {
             setError("");
         };
     }, [])
-);
+  );
 
   const handleRegister = () => {
     setError("");
@@ -49,13 +50,11 @@ export default function RegisterScreen({ navigation }) {
 
     createUserWithEmailAndPassword(auth, email, senha)
       .then(() => {
-        Alert.alert("Sucesso", "Conta criada com sucesso!", [
-          { text: "OK", onPress: () => navigation.navigate("Login") }
-        ]);
+        setVisible(true);
       })
       .catch((error) => {
         setError("Erro ao registrar: " + error.message);
-        Alert.alert("Erro", error.message);
+        setVisible(true);
       });
   };
 
@@ -65,6 +64,13 @@ export default function RegisterScreen({ navigation }) {
       setPasswordMessage("A senha deve ter pelo menos 6 caracteres.");
     } else {
       setPasswordMessage("");
+    }
+  };
+
+  const hideDialog = () => {
+    setVisible(false);
+    if (!error) {
+      navigation.navigate("Login");
     }
   };
 
@@ -132,6 +138,17 @@ export default function RegisterScreen({ navigation }) {
           Voltar para o login
         </Button>
       </View>
+      <Portal>
+        <Dialog visible={visible} onDismiss={hideDialog}>
+          <Dialog.Title>{error ? "Erro" : "Sucesso"}</Dialog.Title>
+          <Dialog.Content>
+            <Paragraph>{error ? error : "Conta criada com sucesso!"}</Paragraph>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={hideDialog}>OK</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
     </Surface>
   );
 }
