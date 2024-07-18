@@ -160,23 +160,22 @@ export default function PerfilScreen() {
                 )}
               </View>
             )}
-            <Pressable onPress={closeModal} style={[styles.button, styles.buttonClose]}>
-              <Text style={styles.textStyle}>Sair</Text>
-            </Pressable>
-            {editMode ? (
-              <Pressable onPress={handleSave} style={[styles.button, styles.buttonSave]}>
-                <Text style={styles.textStyle}>Salvar</Text>
+            <View style={styles.buttonRow}>
+              <Pressable onPress={closeModal} style={[styles.button2, styles.buttonClose]}>
+                <Text style={styles.textStyle}>Sair</Text>
               </Pressable>
-            ) : (
-              <Pressable onPress={handleEdit} style={[styles.button, styles.buttonEdit]}>
-                <Text style={styles.textStyle}>Editar</Text>
-              </Pressable>
-            )}
+              {editMode ? (
+                <Pressable onPress={handleSave} style={[styles.button2, styles.buttonSave]}>
+                  <Text style={styles.textStyle}>Salvar</Text>
+                </Pressable>
+              ) : (
+                <Pressable onPress={handleEdit} style={[styles.button2, styles.buttonEdit]}>
+                  <Text style={styles.textStyle}>Editar</Text>
+                </Pressable>
+              )}
+            </View>
           </View>
         </View>
-
-
-
       </Modal>
       <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
         <FontAwesome5 name="user-circle" size={44} color="hotpink" />
@@ -188,7 +187,6 @@ export default function PerfilScreen() {
         style={{ marginBottom: 25, marginLeft: 140 }}
         onPress={toggleTheme}
         icon={() => <FontAwesome5 name="moon" size={20} color="white" />}
-
       >
         Alterar tema
       </Button>
@@ -210,7 +208,7 @@ export default function PerfilScreen() {
                 Ver mais
               </Button>
               <Button
-                onPress={() => openDeleteConfirmationModal(item)}
+                onPress={() => deletePost(item)}
                 style={[styles.button, styles.buttonClose]}
                 labelStyle={styles.buttonText}
               >
@@ -293,9 +291,22 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   button: {
+    margin: 3,
     borderRadius: 40,
     padding: 10,
     elevation: 2,
+  },
+  button2: {
+    width: 100,
+    borderRadius: 40,
+    padding: 10,
+    elevation: 2,
+    marginBottom: 10,
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
   buttonOpen: {
     backgroundColor: 'hotpink',
@@ -314,17 +325,14 @@ const styles = StyleSheet.create({
     marginRight: 10,
     fontSize: 20,
   },
-  buttonOpen: {
-    backgroundColor: 'hotpink',
-  },
   buttonClose: {
-    backgroundColor: '#2196F3',
+    backgroundColor: 'gray',
   },
   buttonDelete: {
     backgroundColor: 'red',
   },
   buttonEdit: {
-    backgroundColor: '#FFB74D',
+    backgroundColor: 'hotpink',
   },
   buttonSave: {
     backgroundColor: '#4CAF50',
