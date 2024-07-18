@@ -59,10 +59,7 @@ export default function HomeScreen() {
     <Surface style={styles.centeredView}>
 
       <View style={styles.pesq}>
-        <Text
-          icon={() => <FontAwesome5 name="filter" size={20} color="hotpink" />}
-          style={styles.label}
-        >Buscar por Espécie: </Text>
+        <Text style={styles.label}>Buscar por:</Text>
         <Picker
           selectedValue={pesquisa}
           onValueChange={Pesquisar}
@@ -113,6 +110,7 @@ export default function HomeScreen() {
       </Modal>
 
       {resultadosVazios && pesquisa !== null ? (
+
         <View>
           <Text>Não há posts com essa espécie.</Text>
         </View>
@@ -171,7 +169,7 @@ const styles = StyleSheet.create({
     marginLeft: 30,
   },
   image: {
-    width: 360,
+    width: 340,
     height: 300,
     marginBottom: 10,
     borderRadius: 45,
@@ -236,9 +234,10 @@ const styles = StyleSheet.create({
     textAlign: 'center', // Centraliza o texto
   },
   label: {
-    color: 'hotpink',
-    fontWeight: 'bold',
-    fontSize: 20,
+    color: 'hotpink', // Cor dos tópicos em rosa
+    fontWeight: 'bold', // Negrito para os tópicos em rosa
+    fontSize: 20, // Tamanho da fonte dos tópicos
+    marginTop: 12
   },
   label2: {
     color: 'hotpink', // Cor dos tópicos em rosa
@@ -251,19 +250,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   pesq: {
-    flex: 1,
+    flex: 2,
     flexDirection: 'row',
     marginTop: 30,
     marginBottom: 50,
+    
   },
   pesq2: {
     height: 30,
-    width: 120,
+    width: 150,
     marginLeft: 10,
     border: "1px solid hotpink",
     backgroundColor: "#FFF",
     borderRadius: 4,
-    color: "hotpink"
+    color: "hotpink",
+    fontWeight: 'bold'
   },
   separator: {
     width: "90%",

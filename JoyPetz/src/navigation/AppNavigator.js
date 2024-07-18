@@ -8,7 +8,7 @@ import PublicarScreen from "../screens/PublicarScreen/PublicarScreen";
 import TesteScreen from "../screens/TestesScreen/TestesScreen";
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, View, Text, Image } from "react-native";
-import { Appbar, Provider } from 'react-native-paper';
+import { Appbar, Provider as PaperProvider } from 'react-native-paper';
 import PerfilScreen from "../screens/ConfigurationScreen/ConfigurationScreen";
 
 import { CombinedDarkTheme, CombinedLightTheme, NavigationDarkTheme, NavigationLightTheme } from "../config/theme";
@@ -48,7 +48,7 @@ export default function AppNavigator() {
   const themeNavigation = isDarkTheme ? NavigationDarkTheme : NavigationLightTheme;
 
   return (
-    <Provider theme={theme}>
+    <PaperProvider theme={theme}>
       <NavigationContainer theme={themeNavigation}>
         <Drawer.Navigator>
           <Drawer.Screen
@@ -99,7 +99,7 @@ export default function AppNavigator() {
           />
         </Drawer.Navigator>
       </NavigationContainer>
-    </Provider>
+    </PaperProvider>
   );
 }
 

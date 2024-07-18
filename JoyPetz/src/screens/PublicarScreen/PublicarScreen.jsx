@@ -1,8 +1,8 @@
-import { View, StyleSheet, Text, Platform, Image, Alert } from "react-native";
-import { Button, TextInput } from "react-native-paper";
+import React, { useCallback, useState } from "react";
+import { View, StyleSheet, Text, Platform, Image } from "react-native";
+import { Button, TextInput, Dialog, Portal, Paragraph } from "react-native-paper";
 import { FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { useCallback, useState } from "react";
 import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from 'expo-image-picker';
 import { storage, db } from "../../config/firebase";
@@ -11,7 +11,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { useFocusEffect } from "@react-navigation/native";
 
 export default function PublicarScreen({ navigation }) {
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(null);
   const [name, setName] = useState("");
   const [especie, setEspecie] = useState("");
   const [raca, setRaca] = useState("");
@@ -20,19 +20,25 @@ export default function PublicarScreen({ navigation }) {
   const [selectedAge, setSelectedAge] = useState('2 meses');
   const [selectedSex, setSelectedSex] = useState('Fêmea');
   const [uploading, setUploading] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState("");
 
   useFocusEffect(
     useCallback(() => {
-      setImage(null);
-      setName("");
-      setEspecie("");
-      setRaca("");
-      setContato("");
-      setDesc("");
-      setSelectedAge('2 meses');
-      setSelectedSex('Fêmea');
+      resetForm();
     }, [])
   );
+
+  const resetForm = () => {
+    setImage(null);
+    setName("");
+    setEspecie("");
+    setRaca("");
+    setContato("");
+    setDesc("");
+    setSelectedAge('2 meses');
+    setSelectedSex('Fêmea');
+  };
 
   const generateAgeOptions = () => {
     const options = [];
@@ -49,8 +55,6 @@ export default function PublicarScreen({ navigation }) {
   };
 
   const pickImage = async () => {
-    console.log("Iniciando seleção de imagem...");
-
     if (Platform.OS !== 'web') {
       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== 'granted') {
@@ -66,19 +70,16 @@ export default function PublicarScreen({ navigation }) {
       quality: 1,
     });
 
-    console.log("Imagem selecionada:", result);
-
     if (!result.canceled) {
       const uri = Platform.OS === 'web' ? result.assets[0].uri : result.uri;
       setImage(uri);
-    } else {
-      console.log("Seleção de imagem cancelada.");
     }
   };
 
   const validateFields = () => {
-    if (!name || !raca || !contato || !desc || !image) {
-      Alert.alert("Erro", "Preencha todos os campos obrigatórios.");
+    if (!name || !raca || !contato || !desc) {
+      setDialogMessage("Preencha todos os campos obrigatórios.");
+      setVisible(true);
       return false;
     }
     return true;
@@ -90,7 +91,6 @@ export default function PublicarScreen({ navigation }) {
     }
 
     setUploading(true);
-    console.log("Iniciando upload da imagem...");
     try {
       const response = await fetch(image);
       const blob = await response.blob();
@@ -108,35 +108,27 @@ export default function PublicarScreen({ navigation }) {
         contato: contato,
         desc: desc,
         createdAt: new Date(),
-        email: require('../LoginScreen/LoginScreen'),
       });
-      console.log("Upload realizado com sucesso:", downloadURL);
-      setUploading(false);
 
-      setImage(null);
-      setName("");
-      setEspecie("");
-      setRaca("");
-      setContato("");
-      setDesc("");
-      setSelectedAge('2 meses');
-      setSelectedSex('Fêmea');
-
-      navigation.navigate('Home');
-
+      setDialogMessage("Publicação feita com sucesso!");
+      resetForm();
     } catch (error) {
-      Alert.alert("Erro ao criar post:", error.message);
-      setUploading(false);
+      setDialogMessage(`Erro ao criar post: ${error.message}`);
+    }
+    setVisible(true);
+    setUploading(false);
+  };
+
+  const hideDialog = () => {
+    setVisible(false);
+    if (dialogMessage === "Publicação feita com sucesso!") {
+      navigation.navigate('Home');
     }
   };
 
   const formatarTelefone = (telefone) => {
-    // Remove todos os caracteres que não são dígitos
     telefone = telefone.replace(/\D/g, "");
-
-    // Formatação para (99) 99999-9999
     telefone = telefone.replace(/^(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
-
     return telefone;
   };
 
@@ -203,9 +195,9 @@ export default function PublicarScreen({ navigation }) {
         <TextInput
           value={contato}
           onChangeText={(text) => setContato(formatarTelefone(text))}
-          keyboardType="phone-pad" // Define o teclado para entrada de telefone
+          keyboardType="phone-pad"
           placeholder="(DDD) Número de telefone"
-          activeUnderlineColor="hotpink"  
+          activeUnderlineColor="hotpink"
           maxLength={15}
         />
         <Text style={styles.desc}>Descrição</Text>
@@ -219,6 +211,17 @@ export default function PublicarScreen({ navigation }) {
         />
         <Button style={styles.publicar} mode="contained" onPress={uploadImage} disabled={uploading} buttonColor="hotpink">Publicar</Button>
       </View>
+      <Portal>
+        <Dialog visible={visible} onDismiss={hideDialog}>
+          <Dialog.Title>{dialogMessage.includes("Erro") ? "Erro" : "Sucesso"}</Dialog.Title>
+          <Dialog.Content>
+            <Paragraph>{dialogMessage}</Paragraph>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={hideDialog}>OK</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
     </View>
   );
 }
