@@ -4,7 +4,6 @@ import { Button, Surface, Text } from "react-native-paper";
 import { collection, query, orderBy, onSnapshot, where, limit } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import * as React from 'react';
-import { FontAwesome5 } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 
 export default function HomeScreen() {
@@ -169,7 +168,7 @@ const styles = StyleSheet.create({
     marginLeft: 30,
   },
   image: {
-    width: 340,
+    width: 370,
     height: 300,
     marginBottom: 10,
     borderRadius: 45,
@@ -237,7 +236,7 @@ const styles = StyleSheet.create({
     color: 'hotpink', // Cor dos tópicos em rosa
     fontWeight: 'bold', // Negrito para os tópicos em rosa
     fontSize: 20, // Tamanho da fonte dos tópicos
-    marginTop: 12
+    marginTop: 2
   },
   label2: {
     color: 'hotpink', // Cor dos tópicos em rosa

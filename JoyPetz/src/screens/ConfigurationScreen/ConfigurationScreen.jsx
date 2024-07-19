@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   image: {
-    minWidth: 260,
+    minWidth: 370,
     height: 300,
     alignSelf: "stretch",
     marginBottom: 10,

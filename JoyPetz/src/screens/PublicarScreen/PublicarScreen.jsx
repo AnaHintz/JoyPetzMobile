@@ -262,7 +262,6 @@ const publi = StyleSheet.create({
     marginLeft: 10,
     border: "1px solid hotpink",
     borderRadius: 4,
-    backgroundColor: "white",
     color: "black",
   },
   imageContainer: {
