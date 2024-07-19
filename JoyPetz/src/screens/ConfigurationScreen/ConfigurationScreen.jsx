@@ -135,11 +135,6 @@ export default function PerfilScreen() {
                       onChangeText={(text) => setEditedData({ ...editedData, desc: text })}
                       style={styles.input}
                     />
-                    <TextInput
-                      value={editedData.email}
-                      onChangeText={(text) => setEditedData({ ...editedData, email: text })}
-                      style={styles.input}
-                    />
                   </>
                 ) : (
                   <View>
@@ -154,7 +149,6 @@ export default function PerfilScreen() {
                       <Text style={styles.label}>Raça:  <Text style={styles.info}>{selectedItem.raca}</Text></Text>
                       <Text style={styles.label}>Contato:  <Text style={styles.info}>{selectedItem.contato}</Text></Text>
                       <Text style={styles.label}>Descrição:  <Text style={styles.info}>{selectedItem.desc}</Text></Text>
-                      <Text style={styles.label}>Email:  <Text style={styles.info}>{selectedItem.email}</Text></Text>
                     </View>
                   </View>
                 )}
