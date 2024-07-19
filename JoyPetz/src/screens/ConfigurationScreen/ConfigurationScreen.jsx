@@ -4,7 +4,7 @@ import { Button, Surface, Text } from "react-native-paper";
 import { collection, query, orderBy, onSnapshot, deleteDoc, updateDoc, doc } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import * as React from 'react';
-import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import { useTheme } from '../../contexts/ThemeContext';
 
 export default function PerfilScreen() {
@@ -208,7 +208,7 @@ export default function PerfilScreen() {
                 Ver mais
               </Button>
               <Button
-                onPress={() => deletePost(item)}
+                onPress={() => openDeleteConfirmationModal(item)}
                 style={[styles.button, styles.buttonClose]}
                 labelStyle={styles.buttonText}
               >
@@ -218,6 +218,32 @@ export default function PerfilScreen() {
           </View>
         )}
       />
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={deleteConfirmationVisible}
+        onRequestClose={closeDeleteConfirmationModal}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView2}>
+            <Text style={styles.modalText}>Tem certeza que deseja excluir?</Text>
+            <View style={styles.buttonRow}>
+              <Pressable
+                style={[styles.button2, styles.buttonClose]}
+                onPress={closeDeleteConfirmationModal}
+              >
+                <Text style={styles.textStyle}>Não</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.button2, styles.buttonDelete]}
+                onPress={() => deletePost(itemToDelete.id)}
+              >
+                <Text style={styles.textStyle}>Sim</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </Surface>
   );
 }
@@ -281,6 +307,8 @@ const styles = StyleSheet.create({
     margin: 20,
     backgroundColor: 'white',
     borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

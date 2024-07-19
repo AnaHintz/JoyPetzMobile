@@ -22,6 +22,7 @@ export default function PublicarScreen({ navigation }) {
   const [uploading, setUploading] = useState(false);
   const [visible, setVisible] = useState(false);
   const [dialogMessage, setDialogMessage] = useState("");
+  
 
   useFocusEffect(
     useCallback(() => {
@@ -62,6 +63,7 @@ export default function PublicarScreen({ navigation }) {
         return;
       }
     }
+    
 
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -89,6 +91,7 @@ export default function PublicarScreen({ navigation }) {
     if (!validateFields()) {
       return;
     }
+   
 
     setUploading(true);
     try {
@@ -108,6 +111,7 @@ export default function PublicarScreen({ navigation }) {
         contato: contato,
         desc: desc,
         createdAt: new Date(),
+        email: require("../LoginScreen/LoginScreen")
       });
 
       setDialogMessage("Publicação feita com sucesso!");

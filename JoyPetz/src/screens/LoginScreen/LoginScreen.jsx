@@ -44,6 +44,8 @@ export default function LoginScreen({ navigation }) {
     }
   };
 
+  module.exports = email;
+
   return (
     <View style={estilo.container}>
       <View style={estilo.header}>
