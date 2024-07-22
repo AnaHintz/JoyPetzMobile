@@ -14,12 +14,12 @@ export default function HomeScreen() {
   const [resultadosVazios, setResultadosVazios] = useState(false);
 
   useEffect(() => {
-    let q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+    let q = query(collection(db, "posts"),/* orderBy("createdAt", "desc") */);
 
     if (pesquisa) {
       q = query(collection(db, "posts"),
         where("especie", "==", pesquisa),
-        orderBy("createdAt", "desc"));
+       /* orderBy("createdAt", "desc") */);
     }
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -108,10 +108,10 @@ export default function HomeScreen() {
 
       </Modal>
 
-      {resultadosVazios && pesquisa !== null ? (
+      {resultadosVazios === true ? (
 
-        <View>
-          <Text>Não há posts com essa espécie.</Text>
+        <View style={styles.centeredView}>
+          <Text style={styles.erros}>Não há posts com essa espécie...</Text>
         </View>
 
       ) : (
@@ -191,6 +191,12 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+  erros: {
+    marginBottom: 600,
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: "hotpink",
+  },
   button: {
     borderRadius: 40,
     padding: 10,
@@ -253,7 +259,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 30,
     marginBottom: 50,
-    
+
   },
   pesq2: {
     height: 30,
