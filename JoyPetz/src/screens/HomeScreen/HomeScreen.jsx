@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     backgroundColor: "gray",
   },
   post: {
-    backgroundColor: "#DCDCDC",
+    backgroundColor: "#BBBBBB",
     marginBottom: 20,
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     marginLeft: 30,
   },
   image: {
-    width: 370,
+    width: 371,
     height: 300,
     marginBottom: 10,
     borderRadius: 45,
