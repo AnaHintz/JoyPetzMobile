@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { View, StyleSheet, Text, Platform, Image } from "react-native";
+import { View, StyleSheet, Text, Platform, Image, ScrollView } from "react-native";
 import { Button, TextInput, Dialog, Portal, Paragraph } from "react-native-paper";
 import { FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -138,6 +138,7 @@ export default function PublicarScreen({ navigation }) {
 
   return (
     <View style={publi.container}>
+      <ScrollView>
       <View style={styles.container}>
         <TouchableOpacity style={publi.toque} onPress={pickImage}>
           <FontAwesome name="camera" size={21} color="white" style={publi.icon} />
@@ -226,6 +227,7 @@ export default function PublicarScreen({ navigation }) {
           </Dialog.Actions>
         </Dialog>
       </Portal>
+      </ScrollView>
     </View>
   );
 }
@@ -262,7 +264,6 @@ const publi = StyleSheet.create({
     marginLeft: 10,
     border: "1px solid hotpink",
     borderRadius: 4,
-    backgroundColor: "white",
     color: "black",
   },
   imageContainer: {

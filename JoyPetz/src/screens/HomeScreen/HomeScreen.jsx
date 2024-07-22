@@ -4,7 +4,6 @@ import { Button, Surface, Text } from "react-native-paper";
 import { collection, query, orderBy, onSnapshot, where, limit } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import * as React from 'react';
-import { FontAwesome5 } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 
 export default function HomeScreen() {
@@ -15,12 +14,12 @@ export default function HomeScreen() {
   const [resultadosVazios, setResultadosVazios] = useState(false);
 
   useEffect(() => {
-    let q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+    let q = query(collection(db, "posts"),/* orderBy("createdAt", "desc") */);
 
     if (pesquisa) {
       q = query(collection(db, "posts"),
         where("especie", "==", pesquisa),
-        orderBy("createdAt", "desc"));
+       /* orderBy("createdAt", "desc") */);
     }
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -109,10 +108,10 @@ export default function HomeScreen() {
 
       </Modal>
 
-      {resultadosVazios && pesquisa !== null ? (
+      {resultadosVazios === true ? (
 
-        <View>
-          <Text>Não há posts com essa espécie.</Text>
+        <View style={styles.centeredView}>
+          <Text style={styles.erros}>Não há posts com essa espécie...</Text>
         </View>
 
       ) : (
@@ -169,7 +168,7 @@ const styles = StyleSheet.create({
     marginLeft: 30,
   },
   image: {
-    width: 340,
+    width: 370,
     height: 300,
     marginBottom: 10,
     borderRadius: 45,
@@ -191,6 +190,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+  },
+  erros: {
+    marginBottom: 600,
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: "hotpink",
   },
   button: {
     borderRadius: 40,
@@ -237,7 +242,7 @@ const styles = StyleSheet.create({
     color: 'hotpink', // Cor dos tópicos em rosa
     fontWeight: 'bold', // Negrito para os tópicos em rosa
     fontSize: 20, // Tamanho da fonte dos tópicos
-    marginTop: 12
+    marginTop: 2
   },
   label2: {
     color: 'hotpink', // Cor dos tópicos em rosa
@@ -254,7 +259,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 30,
     marginBottom: 50,
-    
+
   },
   pesq2: {
     height: 30,
