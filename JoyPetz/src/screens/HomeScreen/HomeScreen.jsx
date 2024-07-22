@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { View, FlatList, Image, StyleSheet, Modal, Pressable, Alert } from "react-native";
 import { Button, Surface, Text } from "react-native-paper";
-import { collection, query, orderBy, onSnapshot, where, limit } from "firebase/firestore";
+import { collection, query, onSnapshot, where, } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import * as React from 'react';
 import { Picker } from "@react-native-picker/picker";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function HomeScreen() {
   const [posts, setPosts] = useState([]);
@@ -111,7 +112,8 @@ export default function HomeScreen() {
       {resultadosVazios === true ? (
 
         <View style={styles.centeredView}>
-          <Text style={styles.erros}>Não há posts com essa espécie...</Text>
+          <Icon name="exclamation-circle" size={100} color={"hotpink"}/>
+          <Text style={styles.erros}>Não há publicações com essa espécie...</Text>
         </View>
 
       ) : (
@@ -193,7 +195,7 @@ const styles = StyleSheet.create({
   },
   erros: {
     marginBottom: 600,
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: 'bold',
     color: "hotpink",
   },
