@@ -94,79 +94,81 @@ export default function PerfilScreen() {
         visible={modalVisible}
         onRequestClose={closeModal}
       >
-        <View style={styles.modalView2}>
-          <View style={{ alignSelf: "stretch" }}>
-            {selectedItem && (
-              <View style={styles.post}>
+        <View style={styles.containerModal}>
+          <View style={styles.modalView2}>
+            <View style={{ alignSelf: "stretch" }}>
+              {selectedItem && (
+                <View style={styles.post2}>
+                  {editMode ? (
+                    <>
+                      <TextInput
+                        value={editedData.name}
+                        onChangeText={(text) => setEditedData({ ...editedData, name: text })}
+                        style={styles.input}
+                      />
+                      <TextInput
+                        value={editedData.selectedSex}
+                        onChangeText={(text) => setEditedData({ ...editedData, selectedSex: text })}
+                        style={styles.input}
+                      />
+                      <TextInput
+                        value={editedData.selectedAge}
+                        onChangeText={(text) => setEditedData({ ...editedData, selectedAge: text })}
+                        style={styles.input}
+                      />
+                      <TextInput
+                        value={editedData.especie}
+                        onChangeText={(text) => setEditedData({ ...editedData, especie: text })}
+                        style={styles.input}
+                      />
+                      <TextInput
+                        value={editedData.raca}
+                        onChangeText={(text) => setEditedData({ ...editedData, raca: text })}
+                        style={styles.input}
+                      />
+                      <TextInput
+                        value={editedData.contato}
+                        onChangeText={(text) => setEditedData({ ...editedData, contato: text })}
+                        style={styles.input}
+                      />
+                      <TextInput
+                        value={editedData.desc}
+                        onChangeText={(text) => setEditedData({ ...editedData, desc: text })}
+                        style={styles.input}
+                      />
+                    </>
+                  ) : (
+                    <View>
+                      <View style={styles.imageContainer}>
+                        <Image source={{ uri: selectedItem.imageUrl }} style={styles.image} />
+                      </View>
+                      <Text style={[styles.modalText, styles.modalFont]}>{selectedItem.name}</Text>
+                      <View style={styles.mdFtEspc}>
+                        <Text style={styles.label}>Sexo:  <Text style={styles.info}>{selectedItem.selectedSex}</Text></Text>
+                        <Text style={styles.label}>Idade:  <Text style={styles.info}>{selectedItem.selectedAge}</Text></Text>
+                        <Text style={styles.label}>Espécie:  <Text style={styles.info}>{selectedItem.especie}</Text></Text>
+                        <Text style={styles.label}>Raça:  <Text style={styles.info}>{selectedItem.raca}</Text></Text>
+                        <Text style={styles.label}>Contato:  <Text style={styles.info}>{selectedItem.contato}</Text></Text>
+                        <Text style={styles.label}>Descrição:  <Text style={styles.info}>{selectedItem.desc}</Text></Text>
+                      </View>
+                    </View>
+                  )}
+                </View>
+              )}
+              <View style={styles.buttonRow}>
+                <Pressable onPress={closeModal} style={[styles.button2, styles.buttonClose]}>
+                  <Text style={styles.textStyle}>Sair</Text>
+                </Pressable>
                 {editMode ? (
-                  <>
-                    <TextInput
-                      value={editedData.name}
-                      onChangeText={(text) => setEditedData({ ...editedData, name: text })}
-                      style={styles.input}
-                    />
-                    <TextInput
-                      value={editedData.selectedSex}
-                      onChangeText={(text) => setEditedData({ ...editedData, selectedSex: text })}
-                      style={styles.input}
-                    />
-                    <TextInput
-                      value={editedData.selectedAge}
-                      onChangeText={(text) => setEditedData({ ...editedData, selectedAge: text })}
-                      style={styles.input}
-                    />
-                    <TextInput
-                      value={editedData.especie}
-                      onChangeText={(text) => setEditedData({ ...editedData, especie: text })}
-                      style={styles.input}
-                    />
-                    <TextInput
-                      value={editedData.raca}
-                      onChangeText={(text) => setEditedData({ ...editedData, raca: text })}
-                      style={styles.input}
-                    />
-                    <TextInput
-                      value={editedData.contato}
-                      onChangeText={(text) => setEditedData({ ...editedData, contato: text })}
-                      style={styles.input}
-                    />
-                    <TextInput
-                      value={editedData.desc}
-                      onChangeText={(text) => setEditedData({ ...editedData, desc: text })}
-                      style={styles.input}
-                    />
-                  </>
+                  <Pressable onPress={handleSave} style={[styles.button2, styles.buttonSave]}>
+                    <Text style={styles.textStyle}>Salvar</Text>
+                  </Pressable>
                 ) : (
-                  <View>
-                    <View style={styles.imageContainer}>
-                      <Image source={{ uri: selectedItem.imageUrl }} style={styles.image} />
-                    </View>
-                    <Text style={[styles.modalText, styles.modalFont]}>{selectedItem.name}</Text>
-                    <View style={styles.mdFtEspc}>
-                      <Text style={styles.label}>Sexo:  <Text style={styles.info}>{selectedItem.selectedSex}</Text></Text>
-                      <Text style={styles.label}>Idade:  <Text style={styles.info}>{selectedItem.selectedAge}</Text></Text>
-                      <Text style={styles.label}>Espécie:  <Text style={styles.info}>{selectedItem.especie}</Text></Text>
-                      <Text style={styles.label}>Raça:  <Text style={styles.info}>{selectedItem.raca}</Text></Text>
-                      <Text style={styles.label}>Contato:  <Text style={styles.info}>{selectedItem.contato}</Text></Text>
-                      <Text style={styles.label}>Descrição:  <Text style={styles.info}>{selectedItem.desc}</Text></Text>
-                    </View>
-                  </View>
+                  <Pressable onPress={handleEdit} style={[styles.button2, styles.buttonEdit]}>
+                    <Text style={styles.textStyle}>Editar</Text>
+                  </Pressable>
                 )}
               </View>
-            )}
-            <View style={styles.buttonRow}>
-              <Pressable onPress={closeModal} style={[styles.button2, styles.buttonClose]}>
-                <Text style={styles.textStyle}>Sair</Text>
-              </Pressable>
-              {editMode ? (
-                <Pressable onPress={handleSave} style={[styles.button2, styles.buttonSave]}>
-                  <Text style={styles.textStyle}>Salvar</Text>
-                </Pressable>
-              ) : (
-                <Pressable onPress={handleEdit} style={[styles.button2, styles.buttonEdit]}>
-                  <Text style={styles.textStyle}>Editar</Text>
-                </Pressable>
-              )}
             </View>
           </View>
         </View>
@@ -250,7 +252,14 @@ const styles = StyleSheet.create({
     backgroundColor: "gray",
   },
   post: {
-    backgroundColor: "#DCDCDC",
+    backgroundColor: "#C0C0C0",
+    marginBottom: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ddd",
+    paddingBottom: 10,
+    borderRadius: 45,
+  },
+  post2: {
     marginBottom: 20,
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
@@ -297,6 +306,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  containerModal: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
   modalView2: {
     margin: 20,
     backgroundColor: 'white',
@@ -311,6 +326,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+    width: '90%',
   },
   button: {
     margin: 3,
@@ -329,6 +345,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+    width: '100%',
   },
   buttonOpen: {
     backgroundColor: 'hotpink',
@@ -357,7 +374,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'hotpink',
   },
   buttonSave: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: 'hotpink',
   },
   textStyle: {
     color: 'white',
@@ -375,6 +392,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 10,
     paddingHorizontal: 10,
+    width: '100%',
+    borderRadius: 10,
   },
   separator: {
     width: "85%",
