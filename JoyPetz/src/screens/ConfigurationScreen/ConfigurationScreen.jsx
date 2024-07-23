@@ -6,6 +6,7 @@ import { db } from "../../config/firebase";
 import * as React from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useTheme } from '../../contexts/ThemeContext';
+import { Picker } from "@react-native-picker/picker";
 
 export default function PerfilScreen() {
   const { toggleTheme, isDarkTheme } = useTheme();
@@ -86,6 +87,20 @@ export default function PerfilScreen() {
     setDeleteConfirmationVisible(false);
   };
 
+  const generateAgeOptions = () => {
+    const options = [];
+    for (let i = 2; i <= 120; i++) {
+      if (i < 24) {
+        options.push({ label: `${i} meses`, value: `${i} meses` });
+      } else {
+        const years = Math.floor(i / 12);
+        const months = i % 12;
+        options.push({ label: `${years} anos${months > 0 ? ` e ${months} meses` : ''}`, value: `${years} anos${months > 0 ? ` e ${months} meses` : ''}` });
+      }
+    }
+    return options;
+  };
+
   return (
     <Surface style={styles.centeredView}>
       <Modal
@@ -106,21 +121,35 @@ export default function PerfilScreen() {
                         onChangeText={(text) => setEditedData({ ...editedData, name: text })}
                         style={styles.input}
                       />
-                      <TextInput
-                        value={editedData.selectedSex}
-                        onChangeText={(text) => setEditedData({ ...editedData, selectedSex: text })}
+                      <Picker
+                        selectedValue={editedData.selectedSex}
+                        onValueChange={(text) => setEditedData({ ...editedData, selectedSex: text })}
                         style={styles.input}
-                      />
-                      <TextInput
-                        value={editedData.selectedAge}
-                        onChangeText={(text) => setEditedData({ ...editedData, selectedAge: text })}
+                      >
+                        <Picker.Item label="Macho" value="Macho" />
+                        <Picker.Item label="Fêmea" value="Fêmea" />
+                      </Picker>
+                      <Picker
+                        selectedValue={editedData.selectedAge}
+                        onValueChange={(text) => setEditedData({...editedData, selectedAge: text})}
                         style={styles.input}
-                      />
-                      <TextInput
-                        value={editedData.especie}
-                        onChangeText={(text) => setEditedData({ ...editedData, especie: text })}
+                      >
+                        {generateAgeOptions().map((option) => (
+                          <Picker.Item key={option.value} label={option.label} value={option.value} />
+                        ))}
+                      </Picker>
+                      <Picker
+                        selectedValue={editedData.especie}
+                        onValueChange={(text) => setEditedData({ ...editedData, especie: text })}
                         style={styles.input}
-                      />
+                      >
+                        <Picker.Item label="" />
+                        <Picker.Item label="Cão" value="Cão" />
+                        <Picker.Item label="Gato" value="Gato" />
+                        <Picker.Item label="Pássaro" value="Pássaro" />
+                        <Picker.Item label="Roedor" value="Roedor" />
+                        <Picker.Item label="Aquático" value="Aquático" />
+                      </Picker>
                       <TextInput
                         value={editedData.raca}
                         onChangeText={(text) => setEditedData({ ...editedData, raca: text })}
