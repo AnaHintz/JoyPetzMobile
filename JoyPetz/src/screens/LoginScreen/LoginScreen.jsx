@@ -57,7 +57,6 @@ export default function LoginScreen({ navigation }) {
       </View>
       <View style={estilo.separator} />
       <View style={estilo.formContainer}>
-        {error ? <Text style={estilo.errorText}>{error}</Text> : null}
         <View style={estilo.input}>
           <Text style={{ color: 'hotpink' }}>Email</Text>
           <TextInput

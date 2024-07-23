@@ -297,7 +297,6 @@ const styles = StyleSheet.create({
   image: {
     minWidth: 370,
     height: 300,
-    alignSelf: "stretch",
     marginBottom: 10,
     borderRadius: 45,
   },
