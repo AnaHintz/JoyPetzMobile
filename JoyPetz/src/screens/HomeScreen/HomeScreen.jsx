@@ -93,9 +93,11 @@ export default function HomeScreen() {
                 <Text style={styles.label}>Sexo: <Text style={styles.info}>{selectedItem.selectedSex}</Text></Text>
                 <Text style={styles.label}>Idade: <Text style={styles.info}>{selectedItem.selectedAge}</Text></Text>
                 <Text style={styles.label}>Espécie: <Text style={styles.info}>{selectedItem.especie}</Text></Text>
-                <Text style={styles.label}>Raça: <Text style={styles.info}>{selectedItem.raca}</Text></Text>
+                <Text style={styles.label}>Raça: <Text style={styles.info}>{selectedItem.raca}</Text></Text> 
+                <Text style={styles.label}>Doador: <Text style={styles.info}>{selectedItem.email}</Text></Text>
                 <Text style={styles.label}>Contato: <Text style={styles.info}>{selectedItem.contato}</Text></Text>
                 <Text style={styles.label}>Descrição: <Text style={styles.info}>{selectedItem.desc}</Text></Text>
+               
               </View>
             </View>
           )}
