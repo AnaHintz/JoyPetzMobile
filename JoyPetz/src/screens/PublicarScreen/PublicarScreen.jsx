@@ -73,7 +73,7 @@ export default function PublicarScreen({ navigation }) {
     });
 
     if (!result.canceled) {
-      const uri = Platform.OS === 'web' ? result.assets[0].uri : result.uri;
+      const uri = result.uri || (result.assets && result.assets[0].uri);
       setImage(uri);
     }
   };
@@ -237,6 +237,7 @@ const publi = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    marginBottom: 100,
   },
   toque: {
     flexDirection: 'row',
